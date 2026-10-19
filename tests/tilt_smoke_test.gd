@@ -44,6 +44,9 @@ func _run() -> void:
 	var platform = scene.get_node("Platform")
 	var ball = scene.get_node("Ball")
 	var camera = scene.get_node("Camera3D")
+	_check(not ball.freeze and ball.get_node("CollisionShape3D").shape != null, "Default scene enables ball physics and retains collision")
+	# Isolate the input/platform regression from moving-ball gameplay.
+	ball.freeze = true
 	var initial_ball: Transform3D = ball.global_transform
 	var initial_camera: Transform3D = camera.global_transform
 	await _frames(3)
@@ -99,18 +102,22 @@ func _run() -> void:
 	# Check both endpoints and all diagonal tilts, including every platform corner.
 	source.use_sensor_input = true
 	var all_visible: bool = true
+	var clear_of_hud: bool = true
 	var bounded: bool = true
 	for axes in [Vector2(2, 2), Vector2(-2, 2), Vector2(2, -2), Vector2(-2, -2)]:
 		source.set_sensor_axes(axes)
 		await _frames(100)
 		bounded = bounded and absf(platform.rotation_degrees.x) <= 15.0001 and absf(platform.rotation_degrees.z) <= 15.0001
-		for x in [-4.0, 4.0]:
+		for x in [-8.0, 8.0]:
 			for y in [-0.2, 0.2]:
-				for z in [-4.0, 4.0]:
+				for z in [-8.0, 8.0]:
 					all_visible = all_visible and camera.is_position_in_frustum(platform.to_global(Vector3(x, y, z)))
+					var screen_point: Vector2 = camera.unproject_position(platform.to_global(Vector3(x, y, z)))
+					clear_of_hud = clear_of_hud and screen_point.y < scene.get_node("HUD/InputDebug").get_global_rect().position.y
 		all_visible = all_visible and camera.is_position_in_frustum(ball.global_position) and camera.is_position_in_frustum(platform.get_node("GoalMarker").global_position)
 	_check(bounded, "Both axes stay within +/-15 degrees with oversized sensor input")
 	_check(all_visible, "Platform corners, ball and goal remain in camera frustum at all diagonal extremes")
+	_check(clear_of_hud, "Platform stays above input diagnostic panel at all diagonal extremes")
 	_check(camera.global_transform.is_equal_approx(initial_camera), "Camera remains fixed during input")
 	source.set_sensor_axes(Vector2.ZERO)
 	await _frames(130)

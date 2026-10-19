@@ -15,10 +15,10 @@ roughness = 0.85
 
 [sub_resource type="BoxMesh" id="Mesh_platform"]
 material = SubResource("Material_platform")
-size = Vector3(8, 0.4, 8)
+size = Vector3(16, 0.4, 16)
 
 [sub_resource type="BoxShape3D" id="Shape_platform"]
-size = Vector3(8, 0.4, 8)
+size = Vector3(16, 0.4, 16)
 
 [sub_resource type="StandardMaterial3D" id="Material_goal"]
 albedo_color = Color(0.22, 0.85, 0.44, 1)
@@ -26,26 +26,38 @@ roughness = 0.8
 
 [sub_resource type="BoxMesh" id="Mesh_goal"]
 material = SubResource("Material_goal")
-size = Vector3(1.1, 0.02, 1.1)
+size = Vector3(1.6, 0.02, 1.6)
 
 [sub_resource type="BoxShape3D" id="Shape_goal"]
-size = Vector3(1.1, 0.8, 1.1)
+size = Vector3(1.6, 1.0, 1.6)
 
 [sub_resource type="PhysicsMaterial" id="Physics_ball"]
 friction = 0.6
 bounce = 0.05
 
+[sub_resource type="Gradient" id="Gradient_ball"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.2, 0.3, 0.7, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.18, 0.18, 0.18, 1, 1, 1, 1, 1, 0.18, 0.18, 0.18, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="Texture_ball"]
+gradient = SubResource("Gradient_ball")
+width = 128
+height = 64
+fill_to = Vector2(1, 0)
+
 [sub_resource type="StandardMaterial3D" id="Material_ball"]
 albedo_color = Color(1, 0.67, 0.16, 1)
+albedo_texture = SubResource("Texture_ball")
 roughness = 0.4
 
 [sub_resource type="SphereMesh" id="Mesh_ball"]
 material = SubResource("Material_ball")
-radius = 0.35
-height = 0.7
+radius = 0.5
+height = 1.0
 
 [sub_resource type="SphereShape3D" id="Shape_ball"]
-radius = 0.35
+radius = 0.5
 
 [sub_resource type="Environment" id="Environment_main"]
 background_mode = 1
@@ -82,11 +94,11 @@ mesh = SubResource("Mesh_platform")
 shape = SubResource("Shape_platform")
 
 [node name="GoalMarker" type="MeshInstance3D" parent="Platform" unique_id=1548500375]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7, 0.215, -2.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 0.215, -5.4)
 mesh = SubResource("Mesh_goal")
 
 [node name="Goal" type="Area3D" parent="Platform" unique_id=1787189249]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7, 0.6, -2.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 0.7, -5.4)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
@@ -95,11 +107,12 @@ monitorable = false
 shape = SubResource("Shape_goal")
 
 [node name="Ball" type="RigidBody3D" parent="." unique_id=1059772491 node_paths=PackedStringArray("platform")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 collision_layer = 2
 physics_material_override = SubResource("Physics_ball")
 can_sleep = false
-freeze = true
+freeze = false
+gravity_scale = 1.0
 continuous_cd = true
 linear_damp = 0.05
 angular_damp = 0.1
@@ -113,10 +126,11 @@ mesh = SubResource("Mesh_ball")
 shape = SubResource("Shape_ball")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=306810399]
-transform = Transform3D(1, 0, 0, 0, 0.63323766, 0.77395743, 0, -0.77395743, 0.63323766, 0, 11, 9)
+transform = Transform3D(1, 0, 0, 0, 0.63323766, 0.77395743, 0, -0.77395743, 0.63323766, 0, 22, 18)
 projection = 1
+v_offset = -3.0
 current = true
-size = 12.5
+size = 30.0
 near = 0.1
 far = 100.0
 
@@ -134,15 +148,17 @@ environment = SubResource("Environment_main")
 offset_left = 20.0
 offset_top = 20.0
 theme_override_styles/normal = SubResource("Style_hud")
-text = "BALANCE LAB - TILT TEST
+text = "BALANCE LAB
 Player 1: A / D     Player 2: Up / Down
-Ball frozen     Tilt limit: +/-15 degrees"
+R: Retry     Platform: 16 x 16"
 
 [node name="Status" type="Label" parent="HUD" unique_id=1123571582]
 offset_left = 20.0
 offset_top = 125.0
+offset_right = 355.0
+autowrap_mode = 3
 theme_override_styles/normal = SubResource("Style_hud")
-text = "TILT TEST: Ball frozen. Check the Godot Output panel."
+text = "Move the ball to the green target. R: Retry"
 
 [node name="InputDebug" type="Label" parent="HUD"]
 anchors_preset = 3

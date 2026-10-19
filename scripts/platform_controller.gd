@@ -2,7 +2,7 @@ extends AnimatableBody3D
 ## Only consumes normalized axes; knows nothing about keyboards or sensors.
 
 @export var input_source: TiltInput
-@export_range(0.0, 15.0, 0.1) var max_tilt_degrees: float = 15.0
+@export_range(0.0, 30.0, 0.1) var max_tilt_degrees: float = 15.0
 @export_range(0.1, 20.0, 0.1) var tilt_response: float = 5.0
 @export var debug_logging: bool = true
 @export_range(0.05, 2.0, 0.05) var debug_interval: float = 0.2
@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 		axes = input_source.get_tilt_axes().clamp(Vector2(-1.0, -1.0), Vector2.ONE)
 	last_received_axes = axes
 	physics_tick_count += 1
-	var limit: float = deg_to_rad(clampf(max_tilt_degrees, 0.0, 15.0))
+	var limit: float = deg_to_rad(maxf(max_tilt_degrees, 0.0))
 	var weight: float = 1.0 - exp(-tilt_response * delta)
 	# Positive X rotation lowers the near edge; negative Z lowers the right edge.
 	# Keep our own angles because AnimatableBody3D synchronizes transforms to physics.

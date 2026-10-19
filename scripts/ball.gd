@@ -1,11 +1,13 @@
 extends RigidBody3D
 
 signal respawned
+signal fell
 
 @export var platform: Node3D
-@export var spawn_local_position: Vector3 = Vector3(0.0, 0.85, 0.0)
-@export var fall_height: float = -4.0
+@export var spawn_local_position: Vector3 = Vector3(0.0, 1.1, 0.0)
+@export var fall_height: float = -6.0
 var _reset_requested: bool = false
+var _fall_reported: bool = false
 var _initial_transform: Transform3D
 
 
@@ -17,6 +19,7 @@ func request_reset() -> void:
 	# Frozen bodies do not receive force integration callbacks.
 	if freeze:
 		_reset_requested = false
+		_fall_reported = false
 		global_transform = _initial_transform
 		linear_velocity = Vector3.ZERO
 		angular_velocity = Vector3.ZERO
@@ -30,7 +33,11 @@ func request_reset() -> void:
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if freeze:
 		return
-	if not _reset_requested and state.transform.origin.y >= fall_height:
+	# Report physics facts; Main decides failure handling and requests respawn.
+	if state.transform.origin.y < fall_height and not _reset_requested and not _fall_reported:
+		_fall_reported = true
+		fell.emit()
+	if not _reset_requested:
 		return
 	# Reset through the physics state, including all momentum.
 	var spawn_position: Vector3 = spawn_local_position
@@ -41,5 +48,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	state.angular_velocity = Vector3.ZERO
 	state.sleeping = false
 	_reset_requested = false
+	_fall_reported = false
 	reset_physics_interpolation()
 	respawned.emit()
