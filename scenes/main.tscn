@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://cuc586n071ooy"]
+
+[ext_resource type="Script" uid="uid://ckvirjs3fjulr" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://dv66qagod0qqk" path="res://scripts/tilt_input.gd" id="2_input"]
+[ext_resource type="Script" uid="uid://su8kodf8da0m" path="res://scripts/platform_controller.gd" id="3_platform"]
+[ext_resource type="Script" uid="uid://bqmytj28onm1p" path="res://scripts/ball.gd" id="4_ball"]
+[ext_resource type="Script" path="res://scripts/input_debug.gd" id="5_debug"]
+
+[sub_resource type="PhysicsMaterial" id="Physics_platform"]
+friction = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Material_platform"]
+albedo_color = Color(0.2, 0.34, 0.48, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="Mesh_platform"]
+material = SubResource("Material_platform")
+size = Vector3(8, 0.4, 8)
+
+[sub_resource type="BoxShape3D" id="Shape_platform"]
+size = Vector3(8, 0.4, 8)
+
+[sub_resource type="StandardMaterial3D" id="Material_goal"]
+albedo_color = Color(0.22, 0.85, 0.44, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="Mesh_goal"]
+material = SubResource("Material_goal")
+size = Vector3(1.1, 0.02, 1.1)
+
+[sub_resource type="BoxShape3D" id="Shape_goal"]
+size = Vector3(1.1, 0.8, 1.1)
+
+[sub_resource type="PhysicsMaterial" id="Physics_ball"]
+friction = 0.6
+bounce = 0.05
+
+[sub_resource type="StandardMaterial3D" id="Material_ball"]
+albedo_color = Color(1, 0.67, 0.16, 1)
+roughness = 0.4
+
+[sub_resource type="SphereMesh" id="Mesh_ball"]
+material = SubResource("Material_ball")
+radius = 0.35
+height = 0.7
+
+[sub_resource type="SphereShape3D" id="Shape_ball"]
+radius = 0.35
+
+[sub_resource type="Environment" id="Environment_main"]
+background_mode = 1
+background_color = Color(0.045, 0.065, 0.095, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.73, 0.82, 1, 1)
+ambient_light_energy = 0.65
+reflected_light_source = 2
+tonemap_mode = 2
+
+[sub_resource type="StyleBoxFlat" id="Style_hud"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.035, 0.05, 0.075, 0.9)
+
+[node name="Main" type="Node3D" unique_id=1270721520]
+script = ExtResource("1_main")
+
+[node name="TiltInput" type="Node" parent="." unique_id=936508505]
+script = ExtResource("2_input")
+
+[node name="Platform" type="AnimatableBody3D" parent="." unique_id=1921266314 node_paths=PackedStringArray("input_source")]
+collision_mask = 2
+physics_material_override = SubResource("Physics_platform")
+script = ExtResource("3_platform")
+input_source = NodePath("../TiltInput")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform" unique_id=924949848]
+mesh = SubResource("Mesh_platform")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform" unique_id=929667611]
+shape = SubResource("Shape_platform")
+
+[node name="GoalMarker" type="MeshInstance3D" parent="Platform" unique_id=1548500375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7, 0.215, -2.7)
+mesh = SubResource("Mesh_goal")
+
+[node name="Goal" type="Area3D" parent="Platform" unique_id=1787189249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7, 0.6, -2.7)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform/Goal" unique_id=1248777335]
+shape = SubResource("Shape_goal")
+
+[node name="Ball" type="RigidBody3D" parent="." unique_id=1059772491 node_paths=PackedStringArray("platform")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+collision_layer = 2
+physics_material_override = SubResource("Physics_ball")
+can_sleep = false
+freeze = true
+continuous_cd = true
+linear_damp = 0.05
+angular_damp = 0.1
+script = ExtResource("4_ball")
+platform = NodePath("../Platform")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball" unique_id=1920075572]
+mesh = SubResource("Mesh_ball")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball" unique_id=198110346]
+shape = SubResource("Shape_ball")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=306810399]
+transform = Transform3D(1, 0, 0, 0, 0.63323766, 0.77395743, 0, -0.77395743, 0.63323766, 0, 11, 9)
+projection = 1
+current = true
+size = 12.5
+near = 0.1
+far = 100.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=997303238]
+transform = Transform3D(0.90630776, 0.34618863, -0.24240388, 0, 0.57357645, 0.81915206, 0.42261827, -0.74240386, 0.5198368, 0, 0, 0)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=813317715]
+environment = SubResource("Environment_main")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1458248812]
+
+[node name="Instructions" type="Label" parent="HUD" unique_id=1909454856]
+offset_left = 20.0
+offset_top = 20.0
+theme_override_styles/normal = SubResource("Style_hud")
+text = "BALANCE LAB - TILT TEST
+Player 1: A / D     Player 2: Up / Down
+Ball frozen     Tilt limit: +/-15 degrees"
+
+[node name="Status" type="Label" parent="HUD" unique_id=1123571582]
+offset_left = 20.0
+offset_top = 125.0
+theme_override_styles/normal = SubResource("Style_hud")
+text = "TILT TEST: Ball frozen. Check the Godot Output panel."
+
+[node name="InputDebug" type="Label" parent="HUD"]
+anchors_preset = 3
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -165.0
+offset_right = 1132.0
+offset_bottom = -12.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("Style_hud")
+text = "INPUT TRACE v1: waiting for diagnostic script..."
+script = ExtResource("5_debug")
