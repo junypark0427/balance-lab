@@ -1,0 +1,293 @@
+[gd_scene format=3]
+
+[sub_resource type="PhysicsMaterial" id="Physics_walls"]
+friction = 0.6
+bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="Material_walls"]
+albedo_color = Color(0.66, 0.73, 0.80, 1)
+metallic = 0.55
+roughness = 0.38
+
+[sub_resource type="StandardMaterial3D" id="Material_trim"]
+albedo_color = Color(0.22, 0.68, 0.88, 1)
+metallic = 0.3
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.12, 0.43, 0.65, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="BoxMesh" id="Mesh_StartUpper"]
+material = SubResource("Material_walls")
+size = Vector3(3.32, 0.75, 0.32)
+
+[sub_resource type="BoxShape3D" id="Shape_StartUpper"]
+size = Vector3(3.32, 0.75, 0.32)
+
+[sub_resource type="BoxMesh" id="Trim_StartUpper"]
+material = SubResource("Material_trim")
+size = Vector3(3.32, 0.025, 0.035)
+
+[sub_resource type="BoxMesh" id="Mesh_StemOuter"]
+material = SubResource("Material_walls")
+size = Vector3(0.32, 0.75, 7.12)
+
+[sub_resource type="BoxShape3D" id="Shape_StemOuter"]
+size = Vector3(0.32, 0.75, 7.12)
+
+[sub_resource type="BoxMesh" id="Trim_StemOuter"]
+material = SubResource("Material_trim")
+size = Vector3(0.035, 0.025, 7.12)
+
+[sub_resource type="BoxMesh" id="Mesh_FarOuter"]
+material = SubResource("Material_walls")
+size = Vector3(11.52, 0.75, 0.32)
+
+[sub_resource type="BoxShape3D" id="Shape_FarOuter"]
+size = Vector3(11.52, 0.75, 0.32)
+
+[sub_resource type="BoxMesh" id="Trim_FarOuter"]
+material = SubResource("Material_trim")
+size = Vector3(11.52, 0.025, 0.035)
+
+[sub_resource type="BoxMesh" id="Mesh_GoalOuter"]
+material = SubResource("Material_walls")
+size = Vector3(0.32, 0.75, 8.12)
+
+[sub_resource type="BoxShape3D" id="Shape_GoalOuter"]
+size = Vector3(0.32, 0.75, 8.12)
+
+[sub_resource type="BoxMesh" id="Trim_GoalOuter"]
+material = SubResource("Material_trim")
+size = Vector3(0.035, 0.025, 8.12)
+
+[sub_resource type="BoxMesh" id="Mesh_GoalEnd"]
+material = SubResource("Material_walls")
+size = Vector3(3.32, 0.75, 0.32)
+
+[sub_resource type="BoxShape3D" id="Shape_GoalEnd"]
+size = Vector3(3.32, 0.75, 0.32)
+
+[sub_resource type="BoxMesh" id="Trim_GoalEnd"]
+material = SubResource("Material_trim")
+size = Vector3(3.32, 0.025, 0.035)
+
+[sub_resource type="BoxMesh" id="Mesh_GoalInner"]
+material = SubResource("Material_walls")
+size = Vector3(0.32, 0.75, 5.12)
+
+[sub_resource type="BoxShape3D" id="Shape_GoalInner"]
+size = Vector3(0.32, 0.75, 5.12)
+
+[sub_resource type="BoxMesh" id="Trim_GoalInner"]
+material = SubResource("Material_trim")
+size = Vector3(0.035, 0.025, 5.12)
+
+[sub_resource type="BoxMesh" id="Mesh_FarInner"]
+material = SubResource("Material_walls")
+size = Vector3(5.52, 0.75, 0.32)
+
+[sub_resource type="BoxShape3D" id="Shape_FarInner"]
+size = Vector3(5.52, 0.75, 0.32)
+
+[sub_resource type="BoxMesh" id="Trim_FarInner"]
+material = SubResource("Material_trim")
+size = Vector3(5.52, 0.025, 0.035)
+
+[sub_resource type="BoxMesh" id="Mesh_StemInner"]
+material = SubResource("Material_walls")
+size = Vector3(0.32, 0.75, 7.12)
+
+[sub_resource type="BoxShape3D" id="Shape_StemInner"]
+size = Vector3(0.32, 0.75, 7.12)
+
+[sub_resource type="BoxMesh" id="Trim_StemInner"]
+material = SubResource("Material_trim")
+size = Vector3(0.035, 0.025, 7.12)
+
+[sub_resource type="BoxMesh" id="Mesh_StartLower"]
+material = SubResource("Material_walls")
+size = Vector3(6.32, 0.75, 0.32)
+
+[sub_resource type="BoxShape3D" id="Shape_StartLower"]
+size = Vector3(6.32, 0.75, 0.32)
+
+[sub_resource type="BoxMesh" id="Trim_StartLower"]
+material = SubResource("Material_trim")
+size = Vector3(6.32, 0.025, 0.035)
+
+[sub_resource type="BoxMesh" id="Mesh_StartEnd"]
+material = SubResource("Material_walls")
+size = Vector3(0.32, 0.75, 3.32)
+
+[sub_resource type="BoxShape3D" id="Shape_StartEnd"]
+size = Vector3(0.32, 0.75, 3.32)
+
+[sub_resource type="BoxMesh" id="Trim_StartEnd"]
+material = SubResource("Material_trim")
+size = Vector3(0.035, 0.025, 3.32)
+
+[node name="BasicMaze" type="AnimatableBody3D" groups=["maze_geometry"]]
+collision_layer = 1
+collision_mask = 2
+physics_material_override = SubResource("Physics_walls")
+
+[node name="StartUpper" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(-5.6, 0.575, 1.9)
+mesh = SubResource("Mesh_StartUpper")
+
+[node name="StartUpperCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(-5.6, 0.575, 1.9)
+shape = SubResource("Shape_StartUpper")
+
+[node name="StartUpperTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-5.6, 0.95, 1.78)
+mesh = SubResource("Trim_StartUpper")
+
+[node name="StartUpperTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-5.6, 0.95, 2.02)
+mesh = SubResource("Trim_StartUpper")
+
+[node name="StemOuter" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(-4.1, 0.575, -1.5)
+mesh = SubResource("Mesh_StemOuter")
+
+[node name="StemOuterCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(-4.1, 0.575, -1.5)
+shape = SubResource("Shape_StemOuter")
+
+[node name="StemOuterTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-4.22, 0.95, -1.5)
+mesh = SubResource("Trim_StemOuter")
+
+[node name="StemOuterTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-3.98, 0.95, -1.5)
+mesh = SubResource("Trim_StemOuter")
+
+[node name="FarOuter" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(1.5, 0.575, -4.9)
+mesh = SubResource("Mesh_FarOuter")
+
+[node name="FarOuterCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(1.5, 0.575, -4.9)
+shape = SubResource("Shape_FarOuter")
+
+[node name="FarOuterTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(1.5, 0.95, -5.02)
+mesh = SubResource("Trim_FarOuter")
+
+[node name="FarOuterTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(1.5, 0.95, -4.78)
+mesh = SubResource("Trim_FarOuter")
+
+[node name="GoalOuter" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(7.1, 0.575, -1)
+mesh = SubResource("Mesh_GoalOuter")
+
+[node name="GoalOuterCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(7.1, 0.575, -1)
+shape = SubResource("Shape_GoalOuter")
+
+[node name="GoalOuterTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(6.98, 0.95, -1)
+mesh = SubResource("Trim_GoalOuter")
+
+[node name="GoalOuterTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(7.22, 0.95, -1)
+mesh = SubResource("Trim_GoalOuter")
+
+[node name="GoalEnd" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(5.6, 0.575, 2.9)
+mesh = SubResource("Mesh_GoalEnd")
+
+[node name="GoalEndCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(5.6, 0.575, 2.9)
+shape = SubResource("Shape_GoalEnd")
+
+[node name="GoalEndTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(5.6, 0.95, 2.78)
+mesh = SubResource("Trim_GoalEnd")
+
+[node name="GoalEndTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(5.6, 0.95, 3.02)
+mesh = SubResource("Trim_GoalEnd")
+
+[node name="GoalInner" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(4.1, 0.575, 0.5)
+mesh = SubResource("Mesh_GoalInner")
+
+[node name="GoalInnerCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(4.1, 0.575, 0.5)
+shape = SubResource("Shape_GoalInner")
+
+[node name="GoalInnerTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(3.98, 0.95, 0.5)
+mesh = SubResource("Trim_GoalInner")
+
+[node name="GoalInnerTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(4.22, 0.95, 0.5)
+mesh = SubResource("Trim_GoalInner")
+
+[node name="FarInner" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(1.5, 0.575, -1.9)
+mesh = SubResource("Mesh_FarInner")
+
+[node name="FarInnerCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(1.5, 0.575, -1.9)
+shape = SubResource("Shape_FarInner")
+
+[node name="FarInnerTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(1.5, 0.95, -2.02)
+mesh = SubResource("Trim_FarInner")
+
+[node name="FarInnerTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(1.5, 0.95, -1.78)
+mesh = SubResource("Trim_FarInner")
+
+[node name="StemInner" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(-1.1, 0.575, 1.5)
+mesh = SubResource("Mesh_StemInner")
+
+[node name="StemInnerCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(-1.1, 0.575, 1.5)
+shape = SubResource("Shape_StemInner")
+
+[node name="StemInnerTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-1.22, 0.95, 1.5)
+mesh = SubResource("Trim_StemInner")
+
+[node name="StemInnerTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-0.98, 0.95, 1.5)
+mesh = SubResource("Trim_StemInner")
+
+[node name="StartLower" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(-4.1, 0.575, 4.9)
+mesh = SubResource("Mesh_StartLower")
+
+[node name="StartLowerCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(-4.1, 0.575, 4.9)
+shape = SubResource("Shape_StartLower")
+
+[node name="StartLowerTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-4.1, 0.95, 4.78)
+mesh = SubResource("Trim_StartLower")
+
+[node name="StartLowerTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-4.1, 0.95, 5.02)
+mesh = SubResource("Trim_StartLower")
+
+[node name="StartEnd" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
+position = Vector3(-7.1, 0.575, 3.4)
+mesh = SubResource("Mesh_StartEnd")
+
+[node name="StartEndCollision" type="CollisionShape3D" parent="." groups=["maze_wall_collisions", "maze_wall_parts"]]
+position = Vector3(-7.1, 0.575, 3.4)
+shape = SubResource("Shape_StartEnd")
+
+[node name="StartEndTrimA" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-7.22, 0.95, 3.4)
+mesh = SubResource("Trim_StartEnd")
+
+[node name="StartEndTrimB" type="MeshInstance3D" parent="." groups=["maze_wall_parts"]]
+position = Vector3(-6.98, 0.95, 3.4)
+mesh = SubResource("Trim_StartEnd")

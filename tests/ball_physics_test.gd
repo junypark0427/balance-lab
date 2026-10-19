@@ -52,6 +52,11 @@ func _run() -> void:
 	var source = scene.get_node("TiltInput")
 	var status: Label = scene.get_node("HUD/Status")
 	var goal: Area3D = platform.get_node("Goal")
+	# Keep this core-physics fixture as an open board; basic_maze_test covers the real map.
+	for part in get_nodes_in_group("maze_wall_parts"):
+		part.queue_free()
+	_ball.spawn_local_position = Vector3(0, 1.1, 0)
+	_place(_ball.spawn_local_position)
 	# Isolate the rolling/reset cases from the terminal mission-completion rule.
 	goal.monitoring = false
 	source.debug_logging = false

@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ui/game_hud.gd" id="6_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/lab_backdrop.tscn" id="7_room"]
 [ext_resource type="Script" path="res://scripts/mission_controller.gd" id="8_mission"]
+[ext_resource type="PackedScene" path="res://scenes/maps/basic_maze.tscn" id="9_maze"]
 
 [sub_resource type="PhysicsMaterial" id="Physics_platform"]
 friction = 0.6
@@ -89,7 +90,7 @@ own_camera = false
 [node name="TiltInput" type="Node" parent="." unique_id=936508505]
 script = ExtResource("2_input")
 
-[node name="Platform" type="AnimatableBody3D" parent="." unique_id=1921266314 node_paths=PackedStringArray("input_source")]
+[node name="Platform" parent="." unique_id=1921266314 node_paths=PackedStringArray("input_source") instance=ExtResource("9_maze")]
 collision_mask = 2
 physics_material_override = SubResource("Physics_platform")
 script = ExtResource("3_platform")
@@ -102,11 +103,11 @@ mesh = SubResource("Mesh_platform")
 shape = SubResource("Shape_platform")
 
 [node name="GoalMarker" type="MeshInstance3D" parent="Platform" unique_id=1548500375]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 0.215, -5.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6, 0.215, 1.2)
 mesh = SubResource("Mesh_goal")
 
 [node name="Goal" type="Area3D" parent="Platform" unique_id=1787189249]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 0.7, -5.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6, 0.7, 1.2)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
@@ -115,7 +116,7 @@ monitorable = false
 shape = SubResource("Shape_goal")
 
 [node name="Ball" type="RigidBody3D" parent="." unique_id=1059772491 node_paths=PackedStringArray("platform")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 1.1, 3.4)
 collision_layer = 2
 physics_material_override = SubResource("Physics_ball")
 can_sleep = false
@@ -126,6 +127,7 @@ linear_damp = 0.05
 angular_damp = 0.1
 script = ExtResource("4_ball")
 platform = NodePath("../Platform")
+spawn_local_position = Vector3(-5.6, 1.1, 3.4)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball" unique_id=1920075572]
 mesh = SubResource("Mesh_ball")

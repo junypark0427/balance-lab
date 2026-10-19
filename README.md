@@ -4,7 +4,7 @@ Godot 4 / GDScript로 만든 로컬 2인 협동 물리 퍼즐의 핵심 프로�
 기존 프로젝트의 내장 Jolt Physics 설정을 유지했고 Godot 4.7.2로 검증했습니다.
 외부 에셋이나 추가 플러그인은 필요하지 않습니다.
 
-**시작 메뉴와 플레이 HUD가 포함된 16×16 기본 맵입니다.** 두 사람이 플랫폼을 기울여 공을 초록색 목표로 이동시킵니다.
+**시작 메뉴와 플레이 HUD가 포함된 16×16 기본 미로 맵입니다.** 두 사람이 플랫폼을 기울여 공을 초록색 목표로 이동시킵니다.
 공의 중력·충돌·굴림은 내장 Jolt 물리 엔진이 처리하며, 가장자리에는 벽이 없어 떨어질 수 있습니다.
 
 ## 시작 화면과 메뉴
@@ -98,6 +98,26 @@ Goal을 이동할 때 초록색 GoalMarker도 함께 이동하세요. 새 맵의
 실행 시 `make_current()`로 활성화합니다. 일반 플레이의 직교 크기는 24, 수직 오프셋은 0입니다.
 입력 진단 표시 중에는 직교 크기 30, 수직 오프셋 -3으로 바꿔 진단 패널과 겹치지 않도록 합니다.
 
+## 첫 번째 기본 미로
+
+공은 플랫폼 왼쪽 `(-5.6, 1.1, 3.4)`에서 출발합니다. 경로는
+**오른쪽 → 앞쪽(-Z) → 오른쪽 → 뒤쪽(+Z)**으로 세 번 꺾이며, 오른쪽 `(5.6, 0.7, 1.2)`의 기존 Goal로 이어집니다.
+시작점과 Goal 중심은 플랫폼 좌우 가장자리에서 각각 2.4m 떨어져 있습니다.
+구멍·움직이는 장애물·갈림길 없이 두 방향의 협동 조작을 사용하는 단순한 통로입니다.
+
+- 벽 10개: 밝은 회색 금속 BoxMesh, 높이 0.75m, 두께 0.32m, 은은한 청색 상단 테두리.
+- 벽 중심선 사이 간격 3m, 실제 통로 폭 약 2.68m. 지름 1m인 공 양옆에 충분한 여유를 둡니다.
+- `scenes/maps/basic_maze.tscn`을 Main의 **Platform 자체로 인스턴스화**합니다.
+  벽 CollisionShape3D와 기존 바닥 CollisionShape3D 모두 동일한 AnimatableBody3D의 직접 자식입니다.
+  별도 움직이는 물리 몸체 사이의 지연 없이, 벽 표시와 충돌이 플랫폼 중심을 기준으로 함께 회전합니다.
+- 기울기·입력 Script는 기존처럼 Main에서 Platform에 연결합니다. 맵 Scene에는 게임 로직이 없습니다.
+  다음 맵은 같은 AnimatableBody3D 루트 아래에 벽 Mesh/충돌을 구성하고 인스턴스 경로를 교체하면 됩니다.
+  원점·기존 바닥 크기·Goal/공 시작 위치를 새 맵에 맞추고, 충돌 도형은 물리 몸체의 직접 자식으로 유지하세요.
+- 기존 플랫폼/공 재질, 카메라, 메뉴, 일시정지, 재시작, Mission Success 시스템을 유지합니다.
+
+자동 기울기 주행으로 출발점부터 세 코너를 지나 Goal까지 물리 이동을 검사합니다.
+이는 경로와 충돌 검증이며, 두 사람이 실제 키보드로 30초~1분에 클리어하는 난이도는 직접 플레이 후 조정해야 합니다.
+
 ## Input Map과 로그 확인
 
 **프로젝트 → 프로젝트 설정 → Input Map**에서 다음 물리 키 연결을 확인할 수 있습니다.
@@ -183,6 +203,7 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
 - `scenes/ui/mission_success.tscn`, `scripts/ui/mission_success.gd`: 재사용 가능한 성공 결과 UI와 등장 연출.
 - `scenes/main.tscn`: Main 3D Scene. 16×0.4×16 플랫폼, 반지름 0.5의 공,
   충돌 도형, 목표 감지 영역, 고정 카메라, 조명 및 최소 안내 UI.
+- `scenes/maps/basic_maze.tscn`: Platform으로 사용하는 기본 미로의 벽 Mesh/Collision Scene. 별도 제어 Script 없음.
 - `scripts/tilt_input.gd`: 키보드를 정규화된 Vector2 입력으로 변환하는 입력 어댑터.
 - `scripts/platform_controller.gd`: 입력값만 받아 물리 프레임마다 지수 보간으로 플랫폼을 기울임.
   AnimatableBody3D를 사용해 움직이는 플랫폼의 충돌을 물리에 반영합니다.
@@ -196,6 +217,8 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
   물리·타이머 정지, 재개, 전체 재시작, 메인 메뉴 복귀 및 여러 창 크기의 UI 영역을 검사.
 - `tests/mission_success_test.gd`: 실제 Area3D 겹침을 사용해 공만 판정, 중복 방지, 완료 시간/조작 잠금,
   결과 UI, RETRY/LOBBY, 이동한 Goal, 모션 줄이기와 장식 지지대 숨김을 검사.
+- `tests/basic_maze_test.gd`: 왼쪽 시작점, 벽 충돌/회전, 공 크기의 경로 탐색, 카메라 시야와 공 가림,
+  실제 벽 접촉, 추락 후 새 시작점 복귀, 기울기 입력만으로 세 코너를 통과하는 물리 주행과 성공 화면을 검사.
 
 플랫폼/공의 충돌 레이어는 각각 1/2이며, 목표 Area3D는 공만 감지합니다.
 목표 표시에는 물리 장벽이 없으며, 플랫폼 가장자리에도 벽을 두지 않아 밖으로 떨어질 수 있습니다.
@@ -220,13 +243,13 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
 
 공이 월드 Y=-6 아래로 떨어지면 `ball.gd`가 `fell` 신호를 보내고 `main.gd`가 실패 횟수를
 한 번 증가시킨 뒤 `request_reset()`을 호출합니다. 게임 규칙은 메인에, 물리 상태 변경은 공에 둡니다.
-복귀 시 선형 속도·각속도는 0, 회전은 단위 회전으로 초기화하고 플랫폼 로컬 `(0, 1.1, 0)`에 배치합니다.
+복귀 시 선형 속도·각속도는 0, 회전은 단위 회전으로 초기화하고 플랫폼 로컬 `(-5.6, 1.1, 3.4)`에 배치합니다.
 중력에 의해 플랫폼 위로 안착하며, 키를 계속 누르고 있으면 현재 플랫폼 기울기에 따라 다시 굴러갑니다.
 16×16 맵의 기본 최대 기울기에서 플랫폼 아래로 충분히 떨어진 뒤 실패하도록 높이를 -6으로 낮췄습니다.
 실패 횟수와 복귀 안내는 화면에 유지됩니다. R키로 직접 재시도하는 것은 실패 횟수에 더하지 않습니다.
 목표 영역에 도착하면 미션 성공 화면을 표시하고 공과 플랫폼을 멈춥니다. 결과 화면 RETRY로 새로 시작합니다.
-목표는 폭/깊이 1.6, 위치 `(5.4, 0.215, -5.4)`이며 성공 판정은 별도의 Area3D를 사용합니다.
-현재는 단순 기본 맵이며 미로·벽·추가 스테이지는 만들지 않았습니다.
+목표 표시는 폭/깊이 1.6, 위치 `(5.6, 0.215, 1.2)`이며 성공 판정은 별도의 Area3D를 사용합니다.
+현재는 세 번 꺾이는 기본 미로 하나만 있으며 추가 스테이지는 없습니다.
 
 ### Inspector에서 조정
 
@@ -234,7 +257,7 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
 | --- | --- | --- |
 | Platform / Max Tilt Degrees | 15 | 축별 최대 기울기. 현재 0~30도 편집 가능 |
 | Platform / Tilt Response | 5 | 기울기와 수평 복귀 반응 속도 |
-| Ball / Spawn Local Position | (0, 1.1, 0) | 플랫폼 기준 복귀 위치 |
+| Ball / Spawn Local Position | (-5.6, 1.1, 3.4) | 플랫폼 기준 복귀 위치. 최초 Ball 위치도 함께 변경 |
 | Ball / Fall Height | -6 | 월드 기준 실패 높이 |
 | Ball / Linear Damp, Angular Damp | 0.05, 0.1 | 관성 감쇠 |
 | Ball / Physics Material Override | 마찰 0.6, 반발 0.05 | 표면 반응 |
@@ -247,7 +270,7 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
 
 Godot 4.7.2 / Jolt에서 입력·카메라 회귀 검사와 공 물리 검사를 실행합니다.
 합성 입력 검사와 실제 사용자의 키보드/조작감 확인은 별개입니다.
-현재 버전은 입력·카메라 회귀 27개, 공 물리 21개 검사를 통과했습니다.
+현재 버전은 입력·카메라 회귀 28개, 공 물리 21개 검사를 통과했습니다.
 Metal Forward+ 렌더링으로 회전 표시와 플랫폼/목표/공의 크기 및 화면 여백을 확인했습니다.
 시작 화면/UI 통합 검사 27개도 통과했습니다. 960×540, 1280×800, 1024×768 창 크기에서
 홈 UI가 화면 안에 들어오는 것을 검사했고, 레벨 선택/설정/플레이 HUD/일시정지 메뉴도 확인했습니다.
@@ -255,6 +278,8 @@ Metal Forward+ 렌더링으로 회전 표시와 플랫폼/목표/공의 크기 �
 미션 성공 검사 27개가 통과했습니다. 다른 물체 무시, 실제 공 진입, 중복 이벤트 방지, 조작/타이머 정지,
 성공 애니메이션, 결과 시간, 재시작/기존 메뉴 복귀, Goal 위치 변경 및 모션 줄이기를 확인합니다.
 물리 회귀 검사는 굴림/추락/초기화 동안 Goal 감지를 잠시 끄고, 마지막에 Goal을 켜 성공 후 잠금까지 검사합니다.
+기본 물리 검사만 테스트 내부에서 미로 벽을 제거하고 중앙 시작점을 사용해 순수한 관성/마찰을 독립 검사합니다.
+미로 검사 17개는 실제 배치 그대로 시작/복귀, 벽 충돌, 세 번의 방향 전환과 Goal 도달을 확인합니다.
 
 검증 스크립트는 물리 키 코드를 가진 합성 이벤트를 Godot에 주입해 Input Map → TiltInput → Platform 연결을 검사합니다.
 각 플레이어의 독립 축 제어, 두 축 동시 입력, 반대 키 상쇄, 양방향 회전, 부드러운 수평 복귀, 축별 ±15도 제한,
@@ -279,6 +304,7 @@ godot --headless --path . --script res://tests/tilt_smoke_test.gd
 godot --headless --path . --script res://tests/ball_physics_test.gd
 godot --headless --path . --script res://tests/ui_flow_test.gd
 godot --headless --path . --script res://tests/mission_success_test.gd
+godot --headless --path . --fixed-fps 60 --script res://tests/basic_maze_test.gd
 ```
 
 그래픽 화면을 함께 저장하려면 아래 명령으로 검증을 실행합니다. 창이 열리고 자동 테스트 후 닫힙니다.
@@ -288,6 +314,7 @@ godot --path . --fixed-fps 60 --script res://tests/tilt_smoke_test.gd -- --captu
 godot --path . --fixed-fps 60 --script res://tests/ball_physics_test.gd -- --capture
 godot --path . --script res://tests/ui_flow_test.gd -- --capture
 godot --path . --script res://tests/mission_success_test.gd -- --capture
+godot --path . --fixed-fps 60 --max-fps 120 --script res://tests/basic_maze_test.gd -- --capture
 ```
 
 수평 화면은 `/tmp/balance-lab-tilt-preview.png`, A+↑로 기울인 화면은
@@ -297,6 +324,7 @@ UI 검사에서는 `/tmp/balance-lab-menu.png`, `balance-lab-levels.png`, `balan
 `balance-lab-gameplay.png`, `balance-lab-pause.png`를 저장합니다.
 UI 검사는 실제 사용자 설정을 덮어쓰지 않도록 별도의 `/tmp/balance-lab-ui-test-settings.cfg`를 사용합니다.
 미션 결과 화면 캡처는 `/tmp/balance-lab-mission-success.png`에 저장합니다.
+미로 전체와 네 방향 최대 기울기 캡처는 `/tmp/balance-lab-maze-overview.png`, `balance-lab-maze-tilt-*.png`에 저장합니다.
 
 `godot`이 PATH에 없으면 설치된 Godot 실행 파일의 경로로 대체하세요.
 현재 컴퓨터에서는 `/Users/parkjunhoo/Downloads/Godot.app/Contents/MacOS/Godot`를 사용했습니다.

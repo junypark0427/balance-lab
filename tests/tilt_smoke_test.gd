@@ -87,7 +87,8 @@ func _run() -> void:
 	_key(KEY_UP, false)
 	await _frames(112)
 	_check(source.get_tilt_axes() == Vector2.ONE and platform.rotation_degrees.x > 14.9 and platform.rotation_degrees.z < -14.9, "D+Down tilts both axes in opposite directions")
-	_check(platform.position == Vector3.ZERO, "Platform pivot stays at center")
+	# Jolt compound-shape transforms can introduce sub-millimeter rounding at the origin.
+	_check(platform.position.is_zero_approx(), "Platform pivot stays at center")
 	_check(ball.global_transform.is_equal_approx(initial_ball) and ball.linear_velocity == Vector3.ZERO and ball.angular_velocity == Vector3.ZERO, "Ball stays at initial position and rotation during tilt")
 	_key(KEY_D, false)
 	_key(KEY_DOWN, false)
