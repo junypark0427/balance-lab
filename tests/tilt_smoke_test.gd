@@ -104,19 +104,31 @@ func _run() -> void:
 	var all_visible: bool = true
 	var clear_of_hud: bool = true
 	var bounded: bool = true
+	var above_backdrop: bool = true
 	for axes in [Vector2(2, 2), Vector2(-2, 2), Vector2(2, -2), Vector2(-2, -2)]:
 		source.set_sensor_axes(axes)
 		await _frames(100)
 		bounded = bounded and absf(platform.rotation_degrees.x) <= 15.0001 and absf(platform.rotation_degrees.z) <= 15.0001
+		var lowest_corner: float = INF
 		for x in [-8.0, 8.0]:
 			for y in [-0.2, 0.2]:
 				for z in [-8.0, 8.0]:
+					lowest_corner = minf(lowest_corner, platform.to_global(Vector3(x, y, z)).y)
 					all_visible = all_visible and camera.is_position_in_frustum(platform.to_global(Vector3(x, y, z)))
 					var screen_point: Vector2 = camera.unproject_position(platform.to_global(Vector3(x, y, z)))
 					clear_of_hud = clear_of_hud and screen_point.y < scene.get_node("HUD/InputDebug").get_global_rect().position.y
+		# Frustum checks alone cannot detect a decorative floor cutting through the board.
+		for decoration in scene.get_node("LabEnvironment").get_children():
+			if decoration is MeshInstance3D and decoration.is_visible_in_tree():
+				var bounds: AABB = decoration.get_aabb()
+				for endpoint in range(8):
+					above_backdrop = above_backdrop and decoration.to_global(bounds.get_endpoint(endpoint)).y < lowest_corner - 0.25
 		all_visible = all_visible and camera.is_position_in_frustum(ball.global_position) and camera.is_position_in_frustum(platform.get_node("GoalMarker").global_position)
+		if axes == Vector2(2, 2) or axes == Vector2(-2, -2):
+			await _capture("/tmp/balance-lab-floor-clear-%s.png" % ("right" if axes.x > 0 else "left"))
 	_check(bounded, "Both axes stay within +/-15 degrees with oversized sensor input")
 	_check(all_visible, "Platform corners, ball and goal remain in camera frustum at all diagonal extremes")
+	_check(above_backdrop, "Decorative floor, grid and light frame stay below the entire board at all diagonal extremes")
 	_check(clear_of_hud or not scene.get_node("HUD/InputDebug").visible, "Visible diagnostic panel stays clear of platform at diagonal extremes")
 	_check(camera.global_transform.is_equal_approx(initial_camera), "Camera remains fixed during input")
 	source.set_sensor_axes(Vector2.ZERO)

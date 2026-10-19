@@ -30,9 +30,11 @@ F5로 프로젝트를 실행하면 `scenes/menu.tscn`에서 시작합니다.
 
 상단에는 LEVEL 01, 경과 시간, 현재 상태와 PAUSE 버튼이 표시됩니다.
 하단에는 PLAYER 1: A/D, PLAYER 2: ↑/↓ 및 실패 횟수와 단축키 안내가 있습니다.
-목표에 도착하면 COMPLETE로 바뀌고 경과 시간이 멈춥니다. 공의 물리는 기존처럼 계속 동작합니다.
+목표에 도착하면 COMPLETE로 바뀌고 경과 시간이 멈춥니다. 플랫폼 조작과 공의 움직임을 잠그고
+화면 중앙에 MISSION SUCCESS! 결과 화면을 표시합니다.
 공 복귀 후에는 2초간 BALL RESET 상태를 보여주고 IN PROGRESS로 돌아옵니다.
 R은 공만 재배치하며 경과 시간과 실패 횟수를 유지합니다.
+클리어 후에는 R/ESC로 완료 상태를 해제하지 않으며 결과 화면의 RETRY 또는 LOBBY를 사용합니다.
 
 ESC 또는 PAUSE 버튼은 SceneTree를 일시정지해 공·플랫폼·타이머를 함께 정지합니다.
 일시정지 UI만 계속 처리하므로 다음 실제 버튼을 사용할 수 있습니다.
@@ -44,6 +46,34 @@ ESC 또는 PAUSE 버튼은 SceneTree를 일시정지해 공·플랫폼·타이�
 기존 입력 진단 화면은 F3 또는 Settings의 INPUT DIAGNOSTICS로 표시/숨김할 수 있습니다.
 디버그 로그와 키보드/센서 입력 어댑터는 유지했습니다.
 모션 줄이기는 실험실 전시 공을 정지시키고 메뉴/Scene 전환 시간을 줄입니다.
+
+## 미션 성공과 결과 화면
+
+`MissionController`에 연결된 Goal `Area3D`가 **지정된 Ball 인스턴스**의 진입을 감지하면 한 번만 완료합니다.
+다른 물체가 공과 같은 충돌 레이어를 사용하더라도 완료 처리하지 않습니다.
+완료 플래그를 먼저 설정하고 Goal 모니터링을 끄므로 반복 접촉이나 중복 신호로 재실행되지 않습니다.
+
+- 클리어 순간의 경과 시간을 별도로 보관하고 타이머를 정지합니다.
+- 플랫폼의 물리 처리/회전 입력을 중단해 현재 기울기를 유지합니다. 입력 어댑터와 진단 기능은 유지합니다.
+- 물리 질의 처리 이후 공을 Freeze하고 선형/각속도를 0으로 만들어 결과 화면 뒤에서 떨어지지 않게 합니다.
+- 실제 Godot UI로 MISSION SUCCESS!, 클리어 시간, LOBBY/RETRY 버튼을 표시합니다.
+  결과 패널은 페이드/확대 애니메이션으로 등장하고 Goal 위치에서 네이티브 3D 파티클이 한 번 발생합니다.
+- 모션 줄이기가 켜져 있으면 등장 시간을 짧게 하고 파티클을 생략합니다.
+- **LOBBY**는 기존 `Session.MENU_SCENE`인 `scenes/menu.tscn`으로 이동합니다. 별도 가상 로비는 만들지 않았습니다.
+- **RETRY**는 현재 맵의 `scene_file_path`를 다시 불러와 시간·실패 횟수·물리·입력·클리어 상태를 초기화합니다.
+
+다른 맵에서는 `MissionController`의 Inspector에 그 맵의 **Goal(Area3D), Ball(RigidBody3D), Platform**을 연결하세요.
+Goal의 위치를 코드에서 가정하지 않으며 파티클도 실제 Goal의 월드 위치에서 생성됩니다.
+Goal을 이동할 때 초록색 GoalMarker도 함께 이동하세요. 새 맵의 경로/잠금 상태는 기존 level_catalog에서 관리합니다.
+공의 물리/충돌 설정과 플레이 중의 2인 입력 방식은 유지했습니다.
+
+기울일 때 보이던 플레이 맵 아래 장식 지지대 4개는 `visible=false`로 숨겼습니다.
+이 지지대는 원래 충돌 도형이 없는 표시용 Mesh이므로 플랫폼/공 충돌에는 영향을 주지 않습니다.
+시작 화면 실험실의 구조 기둥은 유지했습니다.
+
+플레이 화면의 장식 바닥·격자·외곽 조명은 더 아래(Y=-6 부근)에 배치했습니다.
+16×16 플랫폼을 X/Z 각 축 ±15도로 동시에 기울여도 아래쪽 모서리가 배경 바닥에 묻히지 않습니다.
+이 높이는 `scripts/ui/lab_backdrop.gd`의 `GAMEPLAY_FLOOR_Y`에서 조정하며, 시작 화면 배경에는 적용되지 않습니다.
 
 ## 실행
 
@@ -149,6 +179,8 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
 - `scripts/ui/game_hud.gd`: 상하단 플레이 HUD, 일시정지 메뉴와 진단 표시.
 - `scripts/session.gd`: 작은 Autoload. 설정 저장, 선택 레벨, 화면 전환과 일시정지 해제 관리.
 - `scripts/level_catalog.gd`: 레벨 목록. Tinkercad 맵을 연결할 때 이 파일에 실제 Scene 경로와 잠금 해제를 등록.
+- `scripts/mission_controller.gd`: Goal/공 식별, 중복 완료 방지, 완료 후 물리/조작 잠금과 일회성 파티클.
+- `scenes/ui/mission_success.tscn`, `scripts/ui/mission_success.gd`: 재사용 가능한 성공 결과 UI와 등장 연출.
 - `scenes/main.tscn`: Main 3D Scene. 16×0.4×16 플랫폼, 반지름 0.5의 공,
   충돌 도형, 목표 감지 영역, 고정 카메라, 조명 및 최소 안내 UI.
 - `scripts/tilt_input.gd`: 키보드를 정규화된 Vector2 입력으로 변환하는 입력 어댑터.
@@ -162,6 +194,8 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
 - `tests/ball_physics_test.gd`: 공의 중력, 회전, 관성, 마찰/감쇠, CCD, 실제 가장자리 추락 및 복귀와 목표 도착 검사.
 - `tests/ui_flow_test.gd`: 실제 GUI 노드에 마우스/키 이벤트를 전달해 메뉴 전환, 설정 저장, 일시정지,
   물리·타이머 정지, 재개, 전체 재시작, 메인 메뉴 복귀 및 여러 창 크기의 UI 영역을 검사.
+- `tests/mission_success_test.gd`: 실제 Area3D 겹침을 사용해 공만 판정, 중복 방지, 완료 시간/조작 잠금,
+  결과 UI, RETRY/LOBBY, 이동한 Goal, 모션 줄이기와 장식 지지대 숨김을 검사.
 
 플랫폼/공의 충돌 레이어는 각각 1/2이며, 목표 Area3D는 공만 감지합니다.
 목표 표시에는 물리 장벽이 없으며, 플랫폼 가장자리에도 벽을 두지 않아 밖으로 떨어질 수 있습니다.
@@ -190,8 +224,8 @@ F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE
 중력에 의해 플랫폼 위로 안착하며, 키를 계속 누르고 있으면 현재 플랫폼 기울기에 따라 다시 굴러갑니다.
 16×16 맵의 기본 최대 기울기에서 플랫폼 아래로 충분히 떨어진 뒤 실패하도록 높이를 -6으로 낮췄습니다.
 실패 횟수와 복귀 안내는 화면에 유지됩니다. R키로 직접 재시도하는 것은 실패 횟수에 더하지 않습니다.
-목표 영역에 도착하면 GOAL 문구가 표시됩니다. R 또는 추락 복귀로 문구가 초기화됩니다.
-목표는 폭/깊이 1.6, 위치 `(5.4, 0.215, -5.4)`이며 도착 표시 후에도 공의 물리는 계속 동작합니다.
+목표 영역에 도착하면 미션 성공 화면을 표시하고 공과 플랫폼을 멈춥니다. 결과 화면 RETRY로 새로 시작합니다.
+목표는 폭/깊이 1.6, 위치 `(5.4, 0.215, -5.4)`이며 성공 판정은 별도의 Area3D를 사용합니다.
 현재는 단순 기본 맵이며 미로·벽·추가 스테이지는 만들지 않았습니다.
 
 ### Inspector에서 조정
@@ -218,6 +252,9 @@ Metal Forward+ 렌더링으로 회전 표시와 플랫폼/목표/공의 크기 �
 시작 화면/UI 통합 검사 27개도 통과했습니다. 960×540, 1280×800, 1024×768 창 크기에서
 홈 UI가 화면 안에 들어오는 것을 검사했고, 레벨 선택/설정/플레이 HUD/일시정지 메뉴도 확인했습니다.
 이는 합성 GUI 이벤트를 이용한 검사이며 실제 사용자의 macOS 키보드/포커스 확인과 구분합니다.
+미션 성공 검사 27개가 통과했습니다. 다른 물체 무시, 실제 공 진입, 중복 이벤트 방지, 조작/타이머 정지,
+성공 애니메이션, 결과 시간, 재시작/기존 메뉴 복귀, Goal 위치 변경 및 모션 줄이기를 확인합니다.
+물리 회귀 검사는 굴림/추락/초기화 동안 Goal 감지를 잠시 끄고, 마지막에 Goal을 켜 성공 후 잠금까지 검사합니다.
 
 검증 스크립트는 물리 키 코드를 가진 합성 이벤트를 Godot에 주입해 Input Map → TiltInput → Platform 연결을 검사합니다.
 각 플레이어의 독립 축 제어, 두 축 동시 입력, 반대 키 상쇄, 양방향 회전, 부드러운 수평 복귀, 축별 ±15도 제한,
@@ -231,6 +268,7 @@ Metal Forward+ 렌더링으로 회전 표시와 플랫폼/목표/공의 크기 �
 현재 버전에서의 실제 키보드 플레이는 자동 검사로 확인했다고 간주하지 않습니다.
 추가 직접 확인 항목은 마우스 호버·클릭 감각, 실제 ESC 키, 화면 배율과 글자 선명도,
 별도 실행 창에서의 전체 화면 전환, 편집기 Input 모드와 포커스입니다.
+미션 성공 기능은 실제 조작으로 공을 Goal에 보내는 과정, 등장/파티클 느낌, 결과 버튼의 클릭 감각도 직접 확인하세요.
 
 명령줄로 다시 검사하려면 Godot 실행 파일을 사용해 다음을 실행합니다.
 
@@ -240,6 +278,7 @@ godot --headless --path . --quit-after 180
 godot --headless --path . --script res://tests/tilt_smoke_test.gd
 godot --headless --path . --script res://tests/ball_physics_test.gd
 godot --headless --path . --script res://tests/ui_flow_test.gd
+godot --headless --path . --script res://tests/mission_success_test.gd
 ```
 
 그래픽 화면을 함께 저장하려면 아래 명령으로 검증을 실행합니다. 창이 열리고 자동 테스트 후 닫힙니다.
@@ -248,6 +287,7 @@ godot --headless --path . --script res://tests/ui_flow_test.gd
 godot --path . --fixed-fps 60 --script res://tests/tilt_smoke_test.gd -- --capture
 godot --path . --fixed-fps 60 --script res://tests/ball_physics_test.gd -- --capture
 godot --path . --script res://tests/ui_flow_test.gd -- --capture
+godot --path . --script res://tests/mission_success_test.gd -- --capture
 ```
 
 수평 화면은 `/tmp/balance-lab-tilt-preview.png`, A+↑로 기울인 화면은
@@ -256,6 +296,7 @@ godot --path . --script res://tests/ui_flow_test.gd -- --capture
 UI 검사에서는 `/tmp/balance-lab-menu.png`, `balance-lab-levels.png`, `balance-lab-settings.png`,
 `balance-lab-gameplay.png`, `balance-lab-pause.png`를 저장합니다.
 UI 검사는 실제 사용자 설정을 덮어쓰지 않도록 별도의 `/tmp/balance-lab-ui-test-settings.cfg`를 사용합니다.
+미션 결과 화면 캡처는 `/tmp/balance-lab-mission-success.png`에 저장합니다.
 
 `godot`이 PATH에 없으면 설치된 Godot 실행 파일의 경로로 대체하세요.
 현재 컴퓨터에서는 `/Users/parkjunhoo/Downloads/Godot.app/Contents/MacOS/Godot`를 사용했습니다.

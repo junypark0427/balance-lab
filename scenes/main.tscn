@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/input_debug.gd" id="5_debug"]
 [ext_resource type="Script" path="res://scripts/ui/game_hud.gd" id="6_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/lab_backdrop.tscn" id="7_room"]
+[ext_resource type="Script" path="res://scripts/mission_controller.gd" id="8_mission"]
 
 [sub_resource type="PhysicsMaterial" id="Physics_platform"]
 friction = 0.6
@@ -148,6 +149,12 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=813317715]
 environment = SubResource("Environment_main")
+
+[node name="MissionController" type="Node" parent="." node_paths=PackedStringArray("goal", "ball", "platform")]
+script = ExtResource("8_mission")
+goal = NodePath("../Platform/Goal")
+ball = NodePath("../Ball")
+platform = NodePath("../Platform")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1458248812]
 

@@ -2,6 +2,8 @@ extends Node3D
 ## Original lab set made entirely from Godot primitives. Decorative, no physics.
 @export var display_board: bool = true
 @export var own_camera: bool = true
+# Keep the decorative floor below every corner of the 16 x 16 board at +/-15 degrees.
+const GAMEPLAY_FLOOR_Y: float = -6.0
 var _demo_ball: MeshInstance3D
 var _clock: float = 0.0
 var _orange: StandardMaterial3D
@@ -49,16 +51,23 @@ func _ready() -> void:
 	_orange = _material(Color("ff6326"), 0.35, 1.8)
 	_blue = _material(Color("39c5ff"), 0.3, 2.0)
 	var seam := _material(Color("264659"), 0.4, 0.3)
-	_box(Vector3(65, 0.2, 65), Vector3(0, -2.4, 0), floor_mat)
+	var gameplay: bool = not own_camera and not display_board
+	var floor_y: float = GAMEPLAY_FLOOR_Y if gameplay else -2.4
+	_box(Vector3(65, 0.2, 65), Vector3(0, floor_y, 0), floor_mat)
 	for i in range(-12, 13):
-		_box(Vector3(0.025, 0.01, 50), Vector3(i * 2.0, -2.29, 0), seam)
-		_box(Vector3(50, 0.01, 0.025), Vector3(0, -2.29, i * 2.0), seam)
-	if not own_camera and not display_board:
+		_box(Vector3(0.025, 0.01, 50), Vector3(i * 2.0, floor_y + 0.11, 0), seam)
+		_box(Vector3(50, 0.01, 0.025), Vector3(0, floor_y + 0.11, i * 2.0), seam)
+	if gameplay:
+		var support_index: int = 0
 		for side in [-1.0, 1.0]:
-			_box(Vector3(25, 0.08, 0.10), Vector3(0, -2.1, side * 12), _blue)
-			_box(Vector3(0.10, 0.08, 25), Vector3(side * 12, -2.1, 0), _orange)
+			_box(Vector3(25, 0.08, 0.10), Vector3(0, floor_y + 0.3, side * 12), _blue)
+			_box(Vector3(0.10, 0.08, 25), Vector3(side * 12, floor_y + 0.3, 0), _orange)
 			for z in [-6.0, 6.0]:
-				_box(Vector3(1.3, 2.0, 1.3), Vector3(side * 6, -1.3, z), steel)
+				var support := _box(Vector3(1.3, 2.0, 1.3), Vector3(side * 6, -1.3, z), steel)
+				support.name = "PlatformSupport%d" % support_index
+				support.add_to_group("platform_supports")
+				support.visible = false
+				support_index += 1
 		return
 	# Structural ribs and illuminated strips define the room, rather than a flat background.
 	for side in [-1.0, 1.0]:

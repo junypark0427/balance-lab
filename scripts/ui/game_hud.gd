@@ -1,5 +1,6 @@
 extends Control
 const UI = preload("res://scripts/ui/lab_ui.gd")
+const SUCCESS_SCENE = preload("res://scenes/ui/mission_success.tscn")
 @onready var game = $"../.."
 var pause_menu: Control
 var _timer: Label
@@ -7,6 +8,8 @@ var _state: Label
 var _falls: Label
 var _resume: Button
 var _debug: Label
+var success_menu: Control
+var _pause_button: Button
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -24,6 +27,7 @@ func _ready() -> void:
 	_build_header()
 	_build_footer()
 	_build_pause()
+	_build_success()
 	_decorate_platform()
 
 func _apply_diagnostics() -> void:
@@ -79,6 +83,7 @@ func _build_header() -> void:
 	_state.name = "GameState"
 	state_box.add_child(_state)
 	var pause := UI.button("II   PAUSE", false)
+	_pause_button = pause
 	pause.name = "PauseButton"
 	pause.custom_minimum_size = Vector2(160, 88)
 	row.add_child(pause)
@@ -155,7 +160,7 @@ func _build_pause() -> void:
 	var restart := UI.button("RESTART")
 	restart.name = "RestartButton"
 	box.add_child(restart)
-	restart.pressed.connect(func(): Session.change_scene(Session.CATALOG.LEVELS[Session.selected_level].scene))
+	restart.pressed.connect(_restart_level)
 	var menu := UI.button("MAIN MENU")
 	menu.name = "MainMenuButton"
 	box.add_child(menu)
@@ -165,8 +170,23 @@ func _build_pause() -> void:
 	box.add_child(note)
 	pause_menu.hide()
 
+func _build_success() -> void:
+	success_menu = SUCCESS_SCENE.instantiate()
+	add_child(success_menu)
+	success_menu.retry_requested.connect(_restart_level)
+	success_menu.lobby_requested.connect(func(): Session.change_scene(Session.MENU_SCENE))
+	game.mission_succeeded.connect(_on_mission_success)
+
+func _restart_level() -> void:
+	Session.change_scene(game.scene_file_path)
+
+func _on_mission_success(clear_time: float) -> void:
+	pause_menu.hide()
+	_pause_button.disabled = true
+	success_menu.present(clear_time, Session.CATALOG.LEVELS[Session.selected_level].id)
+
 func set_paused(value: bool) -> void:
-	if Session.transitioning:
+	if Session.transitioning or game.goal_reached:
 		return
 	get_tree().paused = value
 	pause_menu.visible = value

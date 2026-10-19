@@ -51,6 +51,9 @@ func _run() -> void:
 	var platform = scene.get_node("Platform")
 	var source = scene.get_node("TiltInput")
 	var status: Label = scene.get_node("HUD/Status")
+	var goal: Area3D = platform.get_node("Goal")
+	# Isolate the rolling/reset cases from the terminal mission-completion rule.
+	goal.monitoring = false
 	source.debug_logging = false
 	platform.debug_logging = false
 	source.use_sensor_input = true
@@ -103,12 +106,6 @@ func _run() -> void:
 	_place(Vector3(0, 3, 0), Vector3(0, -80, 0))
 	await _frames(60)
 	_check(scene.failure_count == 1 and absf(_ball.position.y - 0.7) < 0.1, "CCD prevents a fast ball tunneling through the platform")
-	_place(Vector3(5.4, 0.8, -5.4))
-	await _frames(30)
-	_check(status.text.begins_with("GOAL!"), "Expanded goal detects the physical ball")
-	_ball.request_reset()
-	await _frames(45)
-	_check(not status.text.begins_with("GOAL!") and scene.failure_count == 1, "Retry clears goal feedback while preserving failure count")
 	# Continue holding tilt across a real fall and respawn.
 	source.set_sensor_axes(Vector2(-1, 0))
 	await _frames(90)
@@ -121,5 +118,14 @@ func _run() -> void:
 	_check(scene.failure_count == 2 and _reset_transform.origin.distance_to(platform.to_global(_ball.spawn_local_position)) < 0.001, "Respawn remains safe while input holds the platform tilted")
 	await _frames(30)
 	_check(_ball.linear_velocity.x < -0.1 and platform.rotation_degrees.z > 14.9, "Controls and rolling resume after a tilted-platform respawn")
+	# Completion is now terminal until the result screen reloads the map.
+	source.set_sensor_axes(Vector2.ZERO)
+	await _frames(120)
+	goal.monitoring = true
+	await _frames(3)
+	_place(goal.global_position + Vector3.UP * 0.1)
+	await _frames(15)
+	_check(status.text.begins_with("GOAL!") and scene.goal_reached, "Expanded goal detects the physical ball and completes mission")
+	_check(_ball.freeze and not platform.is_physics_processing(), "Mission completion locks ball and platform until retry")
 	print("[PHYSICS TEST] Failures: ", _failures)
 	quit(0 if _failures == 0 else 1)
