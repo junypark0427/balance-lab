@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/lab_backdrop.tscn" id="1_lab"]
+[ext_resource type="Script" path="res://scripts/ui/menu.gd" id="2_menu"]
+
+[node name="Menu" type="Node3D"]
+
+[node name="LabBackdrop" parent="." instance=ExtResource("1_lab")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MenuUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_menu")

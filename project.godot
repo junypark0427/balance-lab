@@ -11,15 +11,24 @@ config_version=5
 [application]
 
 config/name="balance_lab"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Session="*res://scripts/session.gd"
+
 [display]
 
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/size/min_window_width=960
+window/size/min_window_height=540
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep"
 
 [input]
 
@@ -50,4 +59,6 @@ tilt_backward={
 
 [rendering]
 
+anti_aliasing/quality/msaa_3d=2
+lights_and_shadows/directional_shadow/size=4096
 rendering_device/driver.windows="d3d12"

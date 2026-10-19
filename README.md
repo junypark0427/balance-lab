@@ -4,14 +4,52 @@ Godot 4 / GDScript로 만든 로컬 2인 협동 물리 퍼즐의 핵심 프로�
 기존 프로젝트의 내장 Jolt Physics 설정을 유지했고 Godot 4.7.2로 검증했습니다.
 외부 에셋이나 추가 플러그인은 필요하지 않습니다.
 
-**현재는 공 물리가 활성화된 16×16 기본 맵입니다.** 두 사람이 플랫폼을 기울여 공을 초록색 목표로 이동시킵니다.
+**시작 메뉴와 플레이 HUD가 포함된 16×16 기본 맵입니다.** 두 사람이 플랫폼을 기울여 공을 초록색 목표로 이동시킵니다.
 공의 중력·충돌·굴림은 내장 Jolt 물리 엔진이 처리하며, 가장자리에는 벽이 없어 떨어질 수 있습니다.
+
+## 시작 화면과 메뉴
+
+F5로 프로젝트를 실행하면 `scenes/menu.tscn`에서 시작합니다.
+작업 폴더의 참고 PNG는 디자인 참고용으로만 확인했으며 실제 게임 배경이나 버튼 이미지로 사용하지 않습니다.
+실험실, 유리 패널, 금속 미로 전시대, 조명과 네온 띠는 Godot 기본 Mesh와 Material로 구성했습니다.
+메뉴의 공은 물리 게임과 별개인 전시용 애니메이션이며 실제 플레이는 기존 `scenes/main.tscn`에서 실행됩니다.
+외부 모델·이미지·폰트·사운드를 다운로드하지 않았고 폰트는 OS의 시스템 폰트 및 내장 대체 폰트를 사용합니다.
+
+- **GAME START**: 기본 LEVEL 01을 시작합니다.
+- **LEVEL SELECT**: CALIBRATION만 열려 있으며 미구현 두 맵은 비활성 잠금 버튼으로 표시합니다.
+- **SETTINGS**: 입력 진단 표시, 모션 줄이기, 별도 게임 창의 전체 화면을 실제로 변경합니다.
+  내장 게임 창에서는 전체 화면이 지원되지 않아 해당 스위치를 비활성화합니다.
+  설정은 `user://settings.cfg`에 저장합니다. 음량 등 구현하지 않은 설정은 표시하지 않습니다.
+- **ESC**: 레벨 선택/설정에서는 홈으로, 플레이 중에는 일시정지/재개로 동작합니다.
+
+기본 디자인 해상도는 1920×1080, 16:9입니다. 최초 실행 창은 화면에 잘 맞는 1280×720이며
+최소 960×540으로 설정했습니다. Anchor/Container와 canvas_items 스트레치를 사용하고
+다른 종횡비에서는 레터박스로 비율을 유지해 UI가 잘리지 않도록 합니다.
+
+## 플레이 인터페이스
+
+상단에는 LEVEL 01, 경과 시간, 현재 상태와 PAUSE 버튼이 표시됩니다.
+하단에는 PLAYER 1: A/D, PLAYER 2: ↑/↓ 및 실패 횟수와 단축키 안내가 있습니다.
+목표에 도착하면 COMPLETE로 바뀌고 경과 시간이 멈춥니다. 공의 물리는 기존처럼 계속 동작합니다.
+공 복귀 후에는 2초간 BALL RESET 상태를 보여주고 IN PROGRESS로 돌아옵니다.
+R은 공만 재배치하며 경과 시간과 실패 횟수를 유지합니다.
+
+ESC 또는 PAUSE 버튼은 SceneTree를 일시정지해 공·플랫폼·타이머를 함께 정지합니다.
+일시정지 UI만 계속 처리하므로 다음 실제 버튼을 사용할 수 있습니다.
+
+- **RESUME**: 같은 상태에서 재개합니다.
+- **RESTART**: 현재 레벨 Scene을 새로 불러와 공·플랫폼·시간·실패 횟수를 초기화합니다.
+- **MAIN MENU**: 일시정지를 해제하고 시작 Scene으로 돌아갑니다.
+
+기존 입력 진단 화면은 F3 또는 Settings의 INPUT DIAGNOSTICS로 표시/숨김할 수 있습니다.
+디버그 로그와 키보드/센서 입력 어댑터는 유지했습니다.
+모션 줄이기는 실험실 전시 공을 정지시키고 메뉴/Scene 전환 시간을 줄입니다.
 
 ## 실행
 
 1. Godot 프로젝트 관리자에서 이 폴더의 `project.godot`를 가져오거나 엽니다.
-2. `scenes/main.tscn`을 열어 **F6**으로 실행하거나 **F5**로 프로젝트를 실행합니다.
-   메인 Scene은 이미 `Main`으로 지정되어 있습니다.
+2. **F5**로 시작 화면을 실행한 뒤 GAME START를 누릅니다.
+   게임만 확인하려면 `scenes/main.tscn`을 열어 **F6**으로 직접 실행할 수 있습니다.
 3. 실행 창을 클릭해 키보드 포커스를 준 뒤 두 사람이 같은 키보드로 조작합니다.
 
 | 조작 | 기능 |
@@ -19,15 +57,16 @@ Godot 4 / GDScript로 만든 로컬 2인 협동 물리 퍼즐의 핵심 프로�
 | Player 1: A / D | 왼쪽 / 오른쪽 가장자리를 낮춤 |
 | Player 2: ↑ / ↓ | 앞쪽(-Z, 화면의 먼 쪽) / 뒤쪽(+Z, 화면의 가까운 쪽) 가장자리를 낮춤 |
 | R | 공의 위치·회전·운동량 초기화. 실패 횟수는 유지 |
+| ESC | 일시정지 / 재개 |
+| F3 | 입력 진단 화면 표시 / 숨김 |
 
 키를 놓으면 해당 축이 수평으로 부드럽게 복귀합니다. 반대 키를 함께 누르면 해당 축 입력은 0입니다.
 각 회전축의 최대 각도는 ±15도입니다. 두 축을 동시에 조작하면 두 축에 각각 한도가 적용됩니다.
 
 플랫폼은 원점에서 회전하며, 입력과 별도의 각도 상태를 사용해 AnimatableBody3D의 물리 동기화 중에도
 보간을 계속합니다. 카메라는 `(0, 22, 18)`에서 플랫폼 중심을 `look_at()`으로 바라보는 고정 직교 시점입니다.
-실행 시 `make_current()`로 활성화합니다. 기본 실행 크기는 1152×720입니다.
-직교 크기는 30, 수직 오프셋은 -3으로 설정해 기본 ±15도 대각 기울기에서도 플랫폼 전체가 보이고
-하단 진단 패널과 겹치지 않도록 화면 위쪽에 여백을 배분합니다.
+실행 시 `make_current()`로 활성화합니다. 일반 플레이의 직교 크기는 24, 수직 오프셋은 0입니다.
+입력 진단 표시 중에는 직교 크기 30, 수직 오프셋 -3으로 바꿔 진단 패널과 겹치지 않도록 합니다.
 
 ## Input Map과 로그 확인
 
@@ -66,7 +105,8 @@ Godot 하단 **Output(출력)** 패널에서 아래와 같은 로그를 확인�
 이어 사용자가 A와 ↑를 눌렀을 때 P1/P2 및 X/Z 값이 바뀌고 플랫폼도 기울어지는 것을 확인했습니다.
 이 실제 키보드 확인은 합성 이벤트를 주입하는 자동 검사 결과와 별도로 기록합니다.
 
-실행을 완전히 중지한 뒤 상단 삼각형 버튼(F5)으로 다시 실행하고, 화면 하단의 **INPUT TRACE v1**을 확인합니다.
+실행을 완전히 중지한 뒤 상단 삼각형 버튼(F5)으로 다시 실행해 GAME START를 누릅니다.
+F3 또는 Settings의 INPUT DIAGNOSTICS를 켜고 화면 하단의 **INPUT TRACE v1**을 확인합니다.
 표시가 없다면 아직 예전 실행 인스턴스이거나 다른 Scene/프로젝트를 보고 있는지 확인하세요.
 시작 로그 `[InputDebug READY]`에는 실행 프로젝트 경로와 Scene 경로도 표시됩니다.
 
@@ -102,6 +142,13 @@ Godot 하단 **Output(출력)** 패널에서 아래와 같은 로그를 확인�
 
 ## 파일 구성과 역할
 
+- `scenes/menu.tscn`: 별도 시작 Scene. 실제 3D 실험실 배경과 네이티브 메뉴 UI.
+- `scenes/ui/lab_backdrop.tscn`, `scripts/ui/lab_backdrop.gd`: 기본 도형으로 만든 실험실/미로 전시 환경.
+- `scripts/ui/menu.gd`: 홈/레벨 선택/설정의 실제 Button, CheckButton 및 Container 구성.
+- `scripts/ui/lab_ui.gd`, `menu_button.gd`: 공통 색상·시스템 폰트·네온 테두리 및 호버/클릭 애니메이션.
+- `scripts/ui/game_hud.gd`: 상하단 플레이 HUD, 일시정지 메뉴와 진단 표시.
+- `scripts/session.gd`: 작은 Autoload. 설정 저장, 선택 레벨, 화면 전환과 일시정지 해제 관리.
+- `scripts/level_catalog.gd`: 레벨 목록. Tinkercad 맵을 연결할 때 이 파일에 실제 Scene 경로와 잠금 해제를 등록.
 - `scenes/main.tscn`: Main 3D Scene. 16×0.4×16 플랫폼, 반지름 0.5의 공,
   충돌 도형, 목표 감지 영역, 고정 카메라, 조명 및 최소 안내 UI.
 - `scripts/tilt_input.gd`: 키보드를 정규화된 Vector2 입력으로 변환하는 입력 어댑터.
@@ -113,6 +160,8 @@ Godot 하단 **Output(출력)** 패널에서 아래와 같은 로그를 확인�
 - `tests/tilt_smoke_test.gd`: Input Map을 통과하는 합성 키 이벤트로 카메라/입력/회전을 검증.
   기본 Scene의 공 물리 활성화 상태를 확인한 뒤 테스트 내부에서만 공을 고정해 플랫폼 조작을 독립적으로 검사.
 - `tests/ball_physics_test.gd`: 공의 중력, 회전, 관성, 마찰/감쇠, CCD, 실제 가장자리 추락 및 복귀와 목표 도착 검사.
+- `tests/ui_flow_test.gd`: 실제 GUI 노드에 마우스/키 이벤트를 전달해 메뉴 전환, 설정 저장, 일시정지,
+  물리·타이머 정지, 재개, 전체 재시작, 메인 메뉴 복귀 및 여러 창 크기의 UI 영역을 검사.
 
 플랫폼/공의 충돌 레이어는 각각 1/2이며, 목표 Area3D는 공만 감지합니다.
 목표 표시에는 물리 장벽이 없으며, 플랫폼 가장자리에도 벽을 두지 않아 밖으로 떨어질 수 있습니다.
@@ -166,6 +215,9 @@ Godot 4.7.2 / Jolt에서 입력·카메라 회귀 검사와 공 물리 검사를
 합성 입력 검사와 실제 사용자의 키보드/조작감 확인은 별개입니다.
 현재 버전은 입력·카메라 회귀 27개, 공 물리 21개 검사를 통과했습니다.
 Metal Forward+ 렌더링으로 회전 표시와 플랫폼/목표/공의 크기 및 화면 여백을 확인했습니다.
+시작 화면/UI 통합 검사 27개도 통과했습니다. 960×540, 1280×800, 1024×768 창 크기에서
+홈 UI가 화면 안에 들어오는 것을 검사했고, 레벨 선택/설정/플레이 HUD/일시정지 메뉴도 확인했습니다.
+이는 합성 GUI 이벤트를 이용한 검사이며 실제 사용자의 macOS 키보드/포커스 확인과 구분합니다.
 
 검증 스크립트는 물리 키 코드를 가진 합성 이벤트를 Godot에 주입해 Input Map → TiltInput → Platform 연결을 검사합니다.
 각 플레이어의 독립 축 제어, 두 축 동시 입력, 반대 키 상쇄, 양방향 회전, 부드러운 수평 복귀, 축별 ±15도 제한,
@@ -177,6 +229,8 @@ Metal Forward+ 렌더링으로 회전 표시와 플랫폼/목표/공의 크기 �
 직접 확인할 내용은 두 사람이 동시에 조작할 때의 난이도, 공의 속도와 관성/마찰 감각,
 화면에서 공·목표의 크기, 가장자리 추락 후 실패 표시와 복귀, R키 재시도입니다.
 현재 버전에서의 실제 키보드 플레이는 자동 검사로 확인했다고 간주하지 않습니다.
+추가 직접 확인 항목은 마우스 호버·클릭 감각, 실제 ESC 키, 화면 배율과 글자 선명도,
+별도 실행 창에서의 전체 화면 전환, 편집기 Input 모드와 포커스입니다.
 
 명령줄로 다시 검사하려면 Godot 실행 파일을 사용해 다음을 실행합니다.
 
@@ -185,6 +239,7 @@ godot --headless --path . --editor --quit
 godot --headless --path . --quit-after 180
 godot --headless --path . --script res://tests/tilt_smoke_test.gd
 godot --headless --path . --script res://tests/ball_physics_test.gd
+godot --headless --path . --script res://tests/ui_flow_test.gd
 ```
 
 그래픽 화면을 함께 저장하려면 아래 명령으로 검증을 실행합니다. 창이 열리고 자동 테스트 후 닫힙니다.
@@ -192,11 +247,15 @@ godot --headless --path . --script res://tests/ball_physics_test.gd
 ```sh
 godot --path . --fixed-fps 60 --script res://tests/tilt_smoke_test.gd -- --capture
 godot --path . --fixed-fps 60 --script res://tests/ball_physics_test.gd -- --capture
+godot --path . --script res://tests/ui_flow_test.gd -- --capture
 ```
 
 수평 화면은 `/tmp/balance-lab-tilt-preview.png`, A+↑로 기울인 화면은
 `/tmp/balance-lab-tilt-diagonal.png`에 저장됩니다. 공이 굴러가는 화면은
 `/tmp/balance-lab-physics-preview.png`에 저장됩니다. 저장 경로는 macOS의 임시 폴더입니다.
+UI 검사에서는 `/tmp/balance-lab-menu.png`, `balance-lab-levels.png`, `balance-lab-settings.png`,
+`balance-lab-gameplay.png`, `balance-lab-pause.png`를 저장합니다.
+UI 검사는 실제 사용자 설정을 덮어쓰지 않도록 별도의 `/tmp/balance-lab-ui-test-settings.cfg`를 사용합니다.
 
 `godot`이 PATH에 없으면 설치된 Godot 실행 파일의 경로로 대체하세요.
 현재 컴퓨터에서는 `/Users/parkjunhoo/Downloads/Godot.app/Contents/MacOS/Godot`를 사용했습니다.
