@@ -127,10 +127,17 @@ size = Vector3(0.32, 0.75, 3.32)
 material = SubResource("Material_trim")
 size = Vector3(0.035, 0.025, 3.32)
 
+[sub_resource type="BoxShape3D" id="Shape_escape_ceiling"]
+size = Vector3(16, 0.2, 16)
+
 [node name="BasicMaze" type="AnimatableBody3D" groups=["maze_geometry"]]
 collision_layer = 1
 collision_mask = 2
 physics_material_override = SubResource("Physics_walls")
+
+[node name="EscapeCeiling" type="CollisionShape3D" parent="." groups=["maze_wall_parts", "maze_escape_guards"]]
+position = Vector3(0, 1.8, 0)
+shape = SubResource("Shape_escape_ceiling")
 
 [node name="StartUpper" type="MeshInstance3D" parent="." groups=["maze_wall_meshes", "maze_wall_parts"]]
 position = Vector3(-5.6, 0.575, 1.9)

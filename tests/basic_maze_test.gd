@@ -98,6 +98,11 @@ func _run() -> void:
 		shapes_match = shapes_match and shape.get_parent() == _maze and shape.position == wall.position and shape.shape.size == wall.mesh.size
 		shapes_match = shapes_match and is_equal_approx(wall.mesh.size.y, 0.75) and is_equal_approx(minf(wall.mesh.size.x, wall.mesh.size.z), 0.32)
 	_check(shapes_match, "Ten metal BoxMesh walls have matching direct-body box collisions, uniform height and thickness")
+	var ceiling: CollisionShape3D = _platform.get_node("EscapeCeiling")
+	var ceiling_bottom: float = ceiling.position.y - ceiling.shape.size.y * 0.5
+	var ball_radius: float = _ball.get_node("CollisionShape3D").shape.radius
+	_check(ceiling.get_parent() == _platform and ceiling.get_child_count() == 0 and ceiling.shape.size == Vector3(16, 0.2, 16), "Invisible collision-only ceiling covers the maze and shares the platform body")
+	_check(_ball.spawn_local_position.y + ball_radius < ceiling_bottom and ceiling_bottom - 0.95 < ball_radius * 2, "Spawn clears the ceiling and the gap above walls is smaller than the ball diameter")
 	await _frames(100)
 	_check(_ball.position.distance_to(Vector3(-5.6, 0.7, 3.4)) < 0.08, "Gravity settles the ball safely inside the left starting corridor")
 	var space: PhysicsDirectSpaceState3D = _game.get_world_3d().direct_space_state
@@ -120,6 +125,9 @@ func _run() -> void:
 	var visible: bool = true
 	var unobscured: bool = true
 	var sample_points: Array[Vector3] = [Vector3(-5.6, 0.7, 3.4), Vector3(-2.6, 0.7, 3.4), Vector3(-2.6, 0.7, -3.4), Vector3(5.6, 0.7, -3.4), Vector3(5.6, 0.7, 1.2)]
+	# Physics rays must ignore the ceiling, which has no visible surface to occlude the view.
+	ceiling.disabled = true
+	await _frames(3)
 	for axes in [Vector2(1, 1), Vector2(-1, 1), Vector2(1, -1), Vector2(-1, -1)]:
 		source.set_sensor_axes(axes)
 		await _frames(100)
@@ -138,6 +146,7 @@ func _run() -> void:
 	_check(attached, "Maze physics body and all walls follow platform rotation at all four diagonal +/-15 degree extremes")
 	_check(visible and camera.global_transform.is_equal_approx(initial_camera), "Fixed camera contains every wall at maximum tilt")
 	_check(unobscured, "Walls do not cover the upper ball at spawn, turns or Goal across maximum tilt combinations")
+	ceiling.disabled = false
 	source.set_sensor_axes(Vector2.ZERO)
 	await _frames(130)
 	_ball.freeze = false
@@ -158,6 +167,35 @@ func _run() -> void:
 		await physics_frame
 		furthest_x = maxf(furthest_x, _platform.to_local(_ball.global_position).x)
 	_check(_wall_hit and furthest_x < -1.65 and _game.failure_count == 0, "Gravity rolls ball into the maze wall without passing through it")
+	source.set_sensor_axes(Vector2.ZERO)
+	await _frames(130)
+	# Reproduce an upward kick that could previously carry the ball over a low wall.
+	var leap_blocked: bool = true
+	var roof_blocked: bool = true
+	for outward in [false, true]:
+		var launch := Vector3(-5.6 if outward else -2.6, 0.7, 3.4)
+		_ball.global_transform = Transform3D(Basis.IDENTITY, _platform.to_global(launch))
+		_ball.linear_velocity = _platform.global_basis * Vector3(-8 if outward else 8, 8, 0)
+		_ball.angular_velocity = Vector3.ZERO
+		for frame in range(90):
+			await physics_frame
+			var local_position: Vector3 = _platform.to_local(_ball.global_position)
+			roof_blocked = roof_blocked and local_position.y < ceiling_bottom - ball_radius + 0.03
+			leap_blocked = leap_blocked and (local_position.x > -6.55 if outward else local_position.x < -1.65)
+	_check(roof_blocked, "Ceiling stops a fast upward-moving ball below its underside")
+	_check(leap_blocked and _game.failure_count == 0, "Upward kicks cannot clear either an internal wall or the outside maze wall")
+	_ball.request_reset()
+	await _frames(90)
+	var rapid_tilt_safe: bool = true
+	var extremes := [Vector2(1, 1), Vector2(-1, -1), Vector2(-1, 1), Vector2(1, -1)]
+	var corridor := PackedVector2Array([Vector2(-7.1, 1.9), Vector2(-4.1, 1.9), Vector2(-4.1, -4.9), Vector2(7.1, -4.9), Vector2(7.1, 2.9), Vector2(4.1, 2.9), Vector2(4.1, -1.9), Vector2(-1.1, -1.9), Vector2(-1.1, 4.9), Vector2(-7.1, 4.9)])
+	for frame in range(360):
+		source.set_sensor_axes(extremes[int(frame / 15) % extremes.size()])
+		await physics_frame
+		var local_position: Vector3 = _platform.to_local(_ball.global_position)
+		# Moving kinematic contacts can have transient overlap; the ball must never clear a wall or leave the corridor.
+		rapid_tilt_safe = rapid_tilt_safe and local_position.y - ball_radius < 0.9 and Geometry2D.is_point_in_polygon(Vector2(local_position.x, local_position.z), corridor)
+	_check(rapid_tilt_safe and _game.failure_count == 0, "Rapid changes in both tilt axes cannot lift the ball over a wall or outside the corridor")
 	source.set_sensor_axes(Vector2.ZERO)
 	await _frames(130)
 	# Preserve the existing off-platform failure/reset integration with the new spawn.
