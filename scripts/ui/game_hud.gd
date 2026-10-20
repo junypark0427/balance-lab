@@ -33,11 +33,15 @@ func _ready() -> void:
 func _apply_diagnostics() -> void:
 	_debug.visible = Session.diagnostics_enabled
 	var camera: Camera3D = game.get_node("Camera3D")
-	camera.size = 30.0 if _debug.visible else 24.0
-	camera.v_offset = -3.0 if _debug.visible else 0.0
+	if camera.has_method("set_diagnostics_visible"):
+		camera.set_diagnostics_visible(_debug.visible)
+	else:
+		camera.size = 30.0 if _debug.visible else 24.0
+		camera.v_offset = -3.0 if _debug.visible else 0.0
 
 func _decorate_platform() -> void:
 	var platform: Node3D = game.get_node("Platform")
+	var board_size: Vector3 = platform.get_node("MeshInstance3D").mesh.get_aabb().size
 	var material := StandardMaterial3D.new()
 	material.albedo_color = UI.CYAN
 	material.emission_enabled = true
@@ -47,11 +51,11 @@ func _decorate_platform() -> void:
 		for across in [true, false]:
 			var strip := MeshInstance3D.new()
 			var mesh := BoxMesh.new()
-			mesh.size = Vector3(16, 0.06, 0.06) if across else Vector3(0.06, 0.06, 16)
+			mesh.size = Vector3(board_size.x, 0.06, 0.06) if across else Vector3(0.06, 0.06, board_size.z)
 			strip.mesh = mesh
 			strip.material_override = material
 			platform.add_child(strip)
-			strip.position = Vector3(0, -0.08, side * 8.02) if across else Vector3(side * 8.02, -0.08, 0)
+			strip.position = Vector3(0, -0.08, side * (board_size.z * 0.5 + 0.02)) if across else Vector3(side * (board_size.x * 0.5 + 0.02), -0.08, 0)
 
 func _build_header() -> void:
 	var margin := MarginContainer.new()
@@ -65,8 +69,8 @@ func _build_header() -> void:
 	margin.add_child(row)
 	var level := _card(row)
 	level.custom_minimum_size.x = 400
-	level.add_child(UI.label("LEVEL  " + Session.CATALOG.LEVELS[Session.selected_level].id, 17, UI.CYAN))
-	level.add_child(UI.label(Session.CATALOG.LEVELS[Session.selected_level].title, 28))
+	level.add_child(UI.label("LEVEL  " + Session.CATALOG.LEVELS[game.level_index].id, 17, UI.CYAN))
+	level.add_child(UI.label(Session.CATALOG.LEVELS[game.level_index].title, 28))
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(spacer)
@@ -183,7 +187,7 @@ func _restart_level() -> void:
 func _on_mission_success(clear_time: float) -> void:
 	pause_menu.hide()
 	_pause_button.disabled = true
-	success_menu.present(clear_time, Session.CATALOG.LEVELS[Session.selected_level].id)
+	success_menu.present(clear_time, Session.CATALOG.LEVELS[game.level_index].id)
 
 func set_paused(value: bool) -> void:
 	if Session.transitioning or game.goal_reached:

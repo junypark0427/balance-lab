@@ -84,7 +84,7 @@ func _run() -> void:
 	await _click(menu.find_child("LevelSelectButton", true, false))
 	_check(menu.page == "levels", "LEVEL SELECT routes to level directory")
 	_check(_inside_screen(menu), "Level directory stays within viewport")
-	_check(not menu.find_child("Level01", true, false).disabled and menu.find_child("Level02", true, false).disabled and menu.find_child("Level03", true, false).disabled, "Only existing map is selectable; future maps are locked")
+	_check(not menu.find_child("Level01", true, false).disabled and not menu.find_child("Level02", true, false).disabled and menu.find_child("Level03", true, false).disabled, "Both existing maps are selectable; future map remains locked")
 	await _capture("levels")
 	await _click(menu.find_child("BackButton", true, false))
 	await _click(menu.find_child("SettingsButton", true, false))
@@ -141,5 +141,36 @@ func _run() -> void:
 	await _click(menu.find_child("LevelSelectButton", true, false))
 	await _click(menu.find_child("Level01", true, false))
 	_check(await _wait_scene("res://scenes/main.tscn"), "Available level card opens playable map")
+	# LEVEL02 uses the same navigation, pause and result flows with its own map metadata.
+	_session.change_scene("res://scenes/menu.tscn")
+	await _wait_scene("res://scenes/menu.tscn")
+	menu = current_scene.get_node("CanvasLayer/MenuUI")
+	await _click(menu.find_child("LevelSelectButton", true, false))
+	await _click(menu.find_child("Level02", true, false))
+	_check(await _wait_scene("res://scenes/level_02.tscn") and _session.selected_level == 1, "LEVEL SELECT enters LEVEL02")
+	game = current_scene
+	hud = game.get_node("HUD/GameplayUI")
+	_check(game.level_index == 1 and game.get_node("Camera3D").has_method("set_diagnostics_visible"), "LEVEL02 uses its own metadata and follow camera")
+	_key(KEY_ESCAPE)
+	await _frames()
+	_check(paused and hud.pause_menu.visible, "LEVEL02 pause works")
+	await _click(hud.find_child("RestartButton", true, false))
+	_check(await _wait_scene("res://scenes/level_02.tscn") and not paused, "LEVEL02 restart stays on LEVEL02")
+	game = current_scene
+	var ball: RigidBody3D = game.get_node("Ball")
+	ball.global_transform = Transform3D(Basis.IDENTITY, game.get_node("Platform/Goal").global_position)
+	ball.linear_velocity = Vector3.ZERO
+	await create_timer(0.3).timeout
+	hud = game.get_node("HUD/GameplayUI")
+	_check(game.goal_reached and hud.success_menu.visible, "LEVEL02 uses existing success result")
+	await _click(hud.success_menu.find_child("RetryButton", true, false))
+	_check(await _wait_scene("res://scenes/level_02.tscn") and not current_scene.goal_reached, "LEVEL02 result Retry reloads correct map")
+	game = current_scene
+	ball = game.get_node("Ball")
+	ball.global_transform = Transform3D(Basis.IDENTITY, game.get_node("Platform/Goal").global_position)
+	ball.linear_velocity = Vector3.ZERO
+	await create_timer(0.3).timeout
+	await _click(game.get_node("HUD/GameplayUI").success_menu.find_child("LobbyButton", true, false))
+	_check(await _wait_scene("res://scenes/menu.tscn") and not paused, "LEVEL02 result Lobby returns to existing menu")
 	print("[UI TEST] Failures: ", _failures)
 	quit(0 if _failures == 0 else 1)

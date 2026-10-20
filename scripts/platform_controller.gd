@@ -4,6 +4,8 @@ extends AnimatableBody3D
 @export var input_source: TiltInput
 @export_range(0.0, 30.0, 0.1) var max_tilt_degrees: float = 15.0
 @export_range(0.1, 20.0, 0.1) var tilt_response: float = 5.0
+## Optional per-axis rate limit for long boards; zero preserves the LEVEL01 response.
+@export_range(0.0, 30.0, 0.5) var max_angular_speed_degrees: float = 0.0
 @export var debug_logging: bool = true
 @export_range(0.05, 2.0, 0.05) var debug_interval: float = 0.2
 var last_received_axes: Vector2 = Vector2.ZERO
@@ -31,10 +33,15 @@ func _physics_process(delta: float) -> void:
 	var weight: float = 1.0 - exp(-tilt_response * delta)
 	# Positive X rotation lowers the near edge; negative Z lowers the right edge.
 	# Keep our own angles because AnimatableBody3D synchronizes transforms to physics.
-	_tilt = Vector2(
+	var next_tilt := Vector2(
 		clampf(lerpf(_tilt.x, axes.y * limit, weight), -limit, limit),
 		clampf(lerpf(_tilt.y, -axes.x * limit, weight), -limit, limit)
 	)
+	if max_angular_speed_degrees > 0.0:
+		var step: float = deg_to_rad(max_angular_speed_degrees) * delta
+		_tilt = Vector2(move_toward(_tilt.x, next_tilt.x, step), move_toward(_tilt.y, next_tilt.y, step))
+	else:
+		_tilt = next_tilt
 	if axes == Vector2.ZERO and _tilt.length_squared() < 0.00000001:
 		_tilt = Vector2.ZERO
 	rotation = Vector3(_tilt.x, 0.0, _tilt.y)

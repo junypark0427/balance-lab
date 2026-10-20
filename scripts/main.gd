@@ -2,6 +2,8 @@ extends Node3D
 
 signal mission_succeeded(clear_time: float)
 
+@export var level_index: int = 0
+@export var fixed_camera: bool = true
 var failure_count: int = 0
 var elapsed_seconds: float = 0.0
 var game_status: String = "IN PROGRESS"
@@ -15,7 +17,8 @@ var _reset_notice_left: float = 0.0
 
 func _ready() -> void:
 	# Godot cameras look along local -Z; look_at avoids Euler/sign mistakes.
-	camera.look_at($Platform.global_position, Vector3.UP)
+	if fixed_camera:
+		camera.look_at($Platform.global_position, Vector3.UP)
 	camera.make_current()
 	$MissionController.completed.connect(_on_mission_completed)
 	ball.respawned.connect(_on_ball_respawned)
