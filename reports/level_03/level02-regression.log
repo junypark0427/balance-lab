@@ -1,0 +1,53 @@
+ERROR: Failed to open 'user://logs/godot2026-10-23T00.30.39.log'.
+   at: copy (core/io/dir_access.cpp:429)
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[LEVEL02] PASS Controlled grounded impact does not touch the old ceiling
+[LEVEL02] Impact profile improved=false incoming=2.86337494850159 outgoing=0.14281079173088
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[LEVEL02] PASS Controlled grounded impact does not touch the old ceiling
+[LEVEL02] Impact profile improved=true incoming=2.86337494850159 outgoing=0.62836760282516
+[LEVEL02] PASS Measured weak old restitution and moderate new restitution before tuning the level
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[LEVEL02] PASS Original OBJ is referenced in place
+[LEVEL02] PASS OBJ uses uniform 0.1 scale with a Z-up to Y-up rotation
+[LEVEL02] PASS Rectangular floor is derived from actual 185.898 x 388 model bounds plus margin
+[LEVEL02] PASS Every original OBJ triangle is retained with original proportions
+[LEVEL02] PASS Nineteen original solids have separate proxies; fourteen walls have vertical guards
+[LEVEL02] PASS Convex proxies share the platform body and meet the floor exactly; no trimesh
+[LEVEL02] PASS Four perimeter guards and no horizontal ceiling
+[LEVEL02] PASS Level-specific modest restitution with unchanged light damping
+[LEVEL02] PASS Ball settles on the original starting plate
+[LEVEL02] PASS Long board has a safe fall plane and active follow camera
+[LEVEL02] PASS Existing simultaneous keyboard input tilts both axes
+[LEVEL02] PASS Release smoothly levels the board
+[LEVEL02] PASS Camera does not snap to a teleported ball
+[LEVEL02] PASS Smooth follow keeps world-up orientation and forward look-ahead
+[LEVEL02] PASS Ball is framed below center
+[LEVEL02] PASS Only an occluding imported solid fades to keep the ball visible
+[LEVEL02] PASS Follow focus is clamped at map ends
+[LEVEL02] PASS Reset naturally returns the camera and ball to this map's start
+[LEVEL02] PASS A ball-sized collision-free route connects both model end plates
+[LEVEL02] Planned route waypoints: [(5.6, 0.7, 14.4), (5.6, 0.7, 6.8), (4.0, 0.7, 6.0), (2.4, 0.7, 4.4), (2.8, 0.7, 3.6), (3.2, 0.7, 2.0), (0.8, 0.7, -3.2), (1.2, 0.7, -4.0), (1.6, 0.7, -10.4), (2.8, 0.7, -18.4), (2.6438, 0.8, -18.4)]
+[LEVEL02] PASS Actual wall collision produces moderate rebound without tunneling
+[LEVEL02] PASS CCD catches a fast ball on an actual thin diagonal OBJ wall
+[LEVEL02] PASS Floor and all compound proxies rotate together at the existing 15 degree limit
+[LEVEL02] PASS Camera orientation stays world-upright while the platform tilts
+[Game] FALL #1: resetting ball
+[LEVEL02] PASS Fall reset clears momentum at the LEVEL02 start, including while tilted
+[LEVEL02] PASS Rate-limited long platform does not launch the ball out during repeated full-input reversals
+[LEVEL02] PASS Real ball reaches the opposite Goal through the OBJ using tilt only
+[LEVEL02] Traversal 47.9999999999973s; reached waypoints 9/11
+[LEVEL02] PASS Existing mission success UI stops physics and controls
+[LEVEL02] Failures: 0

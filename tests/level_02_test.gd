@@ -142,7 +142,7 @@ func _run() -> void:
 	source.debug_logging = false
 	_platform.debug_logging = false
 	_ball.respawned.connect(_reset_observed)
-	_check(_platform.get_node("TinkerModel").mesh.resource_path == "res://prototypes/tinkercad/Grand Fulffy/tinker.obj", "Original OBJ is referenced in place")
+	_check(_platform.get_node("TinkerModel").mesh.resource_path == "res://prototypes/tinkercad/2nd map/Grand Fulffy/tinker.obj", "Original OBJ is referenced in place")
 	_check(_platform.get_node("TinkerModel").scale.is_equal_approx(Vector3.ONE * 0.1), "OBJ uses uniform 0.1 scale with a Z-up to Y-up rotation")
 	_check(_platform.floor_size == Vector2(20.6, 40.8), "Rectangular floor is derived from actual 185.898 x 388 model bounds plus margin")
 	var total_triangles: int = 0

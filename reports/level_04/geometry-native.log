@@ -1,0 +1,25 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M3 (Apple9)
+
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug FOCUS] focused=true
+[LEVEL04 GEOMETRY] PASS All 78 model proxies are convex children of one moving platform
+[LEVEL04 GEOMETRY] PASS Original ring openings match Jolt occupancy at 6561 sampled points
+[LEVEL04 GEOMETRY] PASS The C-shaped start exit stays open for the actual ball
+[LEVEL04 GEOMETRY] PASS Neither perimeter side has a ball-width route outside the ring
+[LEVEL04 GEOMETRY] PASS Curved wall outer face collides at 3m/s without tunneling
+[LEVEL04 GEOMETRY] PASS Curved wall outer face collides at 25m/s without tunneling
+[InputDebug FOCUS] focused=false
+[LEVEL04 GEOMETRY] PASS Curved wall inner face collides at 3m/s without tunneling
+[LEVEL04 GEOMETRY] PASS Curved wall inner face collides at 25m/s without tunneling
+[LEVEL04 GEOMETRY] PASS Tilt-only wall following crosses several convex seams without getting stuck
+[LEVEL04 GEOMETRY] Seam contacts=3 end=(-2.102226, 0.749052, 4.922229) spin=3.22669982910156
+[LEVEL04 GEOMETRY] PASS CCD catches a fast actual impact on the original start walls
+[LEVEL04 GEOMETRY] PASS Input reaches both 15-degree limits; floor and every proxy share the physics rotation
+[LEVEL04 GEOMETRY] PASS Follow camera stays world-upright during platform tilt
+[Game] FALL #1: resetting ball
+[LEVEL04 GEOMETRY] PASS Fall reset uses LEVEL04 spawn and zeroes both velocities
+[LEVEL04 GEOMETRY] PASS Neutral return and camera reset recover smoothly
+[LEVEL04 GEOMETRY] Failures: 0

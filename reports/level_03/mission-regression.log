@@ -1,0 +1,60 @@
+ERROR: Failed to open 'user://logs/godot2026-10-23T00.30.39.log'.
+   at: copy (core/io/dir_access.cpp:429)
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[MISSION TEST] PASS Four decorative platform supports are invisible
+[MISSION TEST] PASS Mission references use actual Goal, Ball and Platform nodes
+[MISSION TEST] PASS Result screen starts hidden with an active mission
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[MISSION TEST] PASS Area3D overlaps a non-ball body without completing
+[MISSION TEST] PASS Actual ball overlap completes once
+[MISSION TEST] PASS Success state and modal result screen are shown
+[MISSION TEST] PASS Requested mission success title is displayed
+[MISSION TEST] PASS Completion snapshots the elapsed time
+[MISSION TEST] PASS Result shows correctly formatted clear time
+[MISSION TEST] PASS Ball is safely frozen after the physics callback
+[MISSION TEST] PASS Platform no longer consumes control input
+[MISSION TEST] PASS Goal monitoring is disabled after completion
+[MISSION TEST] PASS One native particle burst is created
+[MISSION TEST] PASS Result fade and scale animation finishes
+[TiltInput _input #1] DOWN physical=68(D) keycode=68(D) matches=[tilt_right] unicode=0 window=0 P1=1.00 P2=0.00
+[TiltInput _input #2] DOWN physical=4194320(Up) keycode=4194320(Up) matches=[tilt_forward] unicode=0 window=0 P1=1.00 P2=-1.00
+[TiltInput] source=keyboard keys=[D, Up] Player 1=1.00 Player 2=-1.00
+[MISSION TEST] PASS Input adapter still reports keys for diagnostics
+[MISSION TEST] PASS Held cooperative inputs do not move the completed level
+[TiltInput _input #3] UP physical=68(D) keycode=68(D) matches=[tilt_right] unicode=0 window=0 P1=0.00 P2=-1.00
+[TiltInput _input #4] UP physical=4194320(Up) keycode=4194320(Up) matches=[tilt_forward] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[MISSION TEST] PASS Repeated goal/completion signals cannot repeat success or replace time
+[MISSION TEST] PASS Elapsed timer remains stopped after success
+[TiltInput _input #5] DOWN physical=82(R) keycode=82(R) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput _input #6] UP physical=82(R) keycode=82(R) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[MISSION TEST] PASS Retry key and late physics signals cannot undo completed mission
+[TiltInput _input #7] DOWN physical=4194305(Escape) keycode=4194305(Escape) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput _input #8] UP physical=4194305(Escape) keycode=4194305(Escape) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[MISSION TEST] PASS ESC cannot overlay pause menu on result screen
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[MISSION TEST] PASS RETRY routes to the current map scene
+[MISSION TEST] PASS Retry creates a fresh mission and timer
+[MISSION TEST] PASS Retry restores physics, platform controls and hidden result screen
+[MISSION TEST] PASS Goal at a different position completes using the same controller
+[MISSION TEST] PASS LOBBY opens the existing menu scene
+[MISSION TEST] PASS Lobby destination is the real home menu
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[MISSION TEST] PASS Reduced motion keeps success functional without particles
+[MISSION TEST] Failures: 0

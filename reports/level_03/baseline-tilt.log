@@ -1,0 +1,174 @@
+ERROR: Failed to open 'user://logs/godot2026-10-23T00.34.14.log'.
+   at: copy (core/io/dir_access.cpp:429)
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+[TEST] SYNTHETIC INPUT ONLY: InputEventKey injection does not verify macOS keyboard delivery or editor focus.
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/private/tmp/balance-level03-baseline/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[TEST] PASS Default scene enables ball physics and retains collision
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[TEST] PASS Main camera is active
+[TEST] PASS Camera looks at platform center
+[TEST] PASS Keyboard adapter is connected to platform
+[TEST] PASS Ball is frozen with collision retained
+[TEST] PASS Input Map: tilt_left
+[TEST] PASS Input Map: tilt_right
+[TEST] PASS Input Map: tilt_forward
+[TEST] PASS Input Map: tilt_backward
+[TiltInput _input #1] DOWN physical=65(A) keycode=0() matches=[tilt_left] unicode=0 window=0 P1=-1.00 P2=0.00
+[TiltInput] source=keyboard keys=[A] Player 1=-1.00 Player 2=0.00
+[Platform] Player 1=-1.00 Player 2=0.00 X=-0.00 deg Z=7.91 deg
+[Platform] Player 1=-1.00 Player 2=0.00 X=-0.00 deg Z=12.39 deg
+[Platform] Player 1=-1.00 Player 2=0.00 X=-0.00 deg Z=14.04 deg
+[TEST] PASS Player 1 alone changes only Z rotation
+[TiltInput _input #2] UP physical=65(A) keycode=0() matches=[tilt_left] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=14.65 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=5.39 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=1.98 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.73 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.27 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.10 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.04 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.01 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[TiltInput _input #3] DOWN physical=4194320(Up) keycode=0() matches=[tilt_forward] unicode=0 window=0 P1=0.00 P2=-1.00
+[TiltInput] source=keyboard keys=[Up] Player 1=0.00 Player 2=-1.00
+[Platform] Player 1=0.00 Player 2=-1.00 X=-2.30 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=-1.00 X=-10.33 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=-1.00 X=-13.28 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=-1.00 X=-14.37 deg Z=0.00 deg
+[TEST] PASS Player 2 alone changes only X rotation
+[TiltInput _input #4] UP physical=4194320(Up) keycode=0() matches=[tilt_forward] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-9.66 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-3.55 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-1.31 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.48 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.18 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.07 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.02 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.01 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[TiltInput _input #5] DOWN physical=65(A) keycode=0() matches=[tilt_left] unicode=0 window=0 P1=-1.00 P2=0.00
+[TiltInput _input #6] DOWN physical=4194320(Up) keycode=0() matches=[tilt_forward] unicode=0 window=0 P1=-1.00 P2=-1.00
+[TiltInput] source=keyboard keys=[A, Up] Player 1=-1.00 Player 2=-1.00
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-6.63 deg Z=6.63 deg
+[TEST] PASS A+Up produces simultaneous Player 1/2 input
+[TEST] PASS Both axes tilt gradually around platform center
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-11.92 deg Z=11.92 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-13.87 deg Z=13.87 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-14.58 deg Z=14.58 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-14.85 deg Z=14.85 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-14.94 deg Z=14.94 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-14.98 deg Z=14.98 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-14.99 deg Z=14.99 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=15.00 deg
+[TEST] PASS A+Up reaches intended tilt directions
+[TEST] PASS Physics body and visible platform share rotation
+[TiltInput _input #7] DOWN physical=68(D) keycode=0() matches=[tilt_right] unicode=0 window=0 P1=0.00 P2=-1.00
+[TiltInput _input #8] DOWN physical=4194322(Down) keycode=0() matches=[tilt_backward] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput] source=keyboard keys=[A, D, Up, Down] Player 1=0.00 Player 2=0.00
+[TEST] PASS Opposite keys cancel independently
+[TiltInput _input #9] UP physical=65(A) keycode=0() matches=[tilt_left] unicode=0 window=0 P1=1.00 P2=0.00
+[TiltInput _input #10] UP physical=4194320(Up) keycode=0() matches=[tilt_forward] unicode=0 window=0 P1=1.00 P2=1.00
+[TiltInput] source=keyboard keys=[D, Down] Player 1=1.00 Player 2=1.00
+[Platform] Player 1=1.00 Player 2=1.00 X=-11.68 deg Z=11.68 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=5.18 deg Z=-5.18 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=11.39 deg Z=-11.39 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=13.67 deg Z=-13.67 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.51 deg Z=-14.51 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.82 deg Z=-14.82 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.93 deg Z=-14.93 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.98 deg Z=-14.98 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.99 deg Z=-14.99 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=15.00 deg Z=-15.00 deg
+[TEST] PASS D+Down tilts both axes in opposite directions
+[TEST] PASS Platform pivot stays at center
+[TEST] PASS Ball stays at initial position and rotation during tilt
+[TiltInput _input #11] UP physical=68(D) keycode=0() matches=[tilt_right] unicode=0 window=0 P1=0.00 P2=1.00
+[TiltInput _input #12] UP physical=4194322(Down) keycode=0() matches=[tilt_backward] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=7.70 deg Z=-7.70 deg
+[TEST] PASS Release returns gradually toward neutral
+[Platform] Player 1=0.00 Player 2=0.00 X=2.83 deg Z=-2.83 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=1.04 deg Z=-1.04 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=0.38 deg Z=-0.38 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=0.14 deg Z=-0.14 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=0.05 deg Z=-0.05 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=0.02 deg Z=-0.02 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=0.01 deg Z=-0.01 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[TEST] PASS Release returns both axes to neutral
+[TiltInput _input #13] DOWN physical=82(R) keycode=0() matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[TEST] PASS R works while frozen without queuing a later reset
+[TiltInput] source=sensor keys=[] Player 1=1.00 Player 2=1.00
+[TiltInput _input #14] UP physical=82(R) keycode=0() matches=[] unicode=0 window=0 P1=1.00 P2=1.00
+[Platform] Player 1=1.00 Player 2=1.00 X=7.30 deg Z=-7.30 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=12.17 deg Z=-12.17 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=13.96 deg Z=-13.96 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.62 deg Z=-14.62 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.86 deg Z=-14.86 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.95 deg Z=-14.95 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.98 deg Z=-14.98 deg
+[Platform] Player 1=1.00 Player 2=1.00 X=14.99 deg Z=-14.99 deg
+[TiltInput] source=sensor keys=[] Player 1=-1.00 Player 2=1.00
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=-6.49 deg
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=7.09 deg
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=12.09 deg
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=13.93 deg
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=14.61 deg
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=14.86 deg
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=14.95 deg
+[Platform] Player 1=-1.00 Player 2=1.00 X=15.00 deg Z=14.98 deg
+[TiltInput] source=sensor keys=[] Player 1=1.00 Player 2=-1.00
+[Platform] Player 1=1.00 Player 2=-1.00 X=15.00 deg Z=14.99 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-3.96 deg Z=-3.97 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-10.94 deg Z=-10.94 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-13.51 deg Z=-13.51 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-14.45 deg Z=-14.45 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-14.80 deg Z=-14.80 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-14.93 deg Z=-14.93 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-14.97 deg Z=-14.97 deg
+[Platform] Player 1=1.00 Player 2=-1.00 X=-14.99 deg Z=-14.99 deg
+[TiltInput] source=sensor keys=[] Player 1=-1.00 Player 2=-1.00
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=-0.40 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=9.34 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=12.92 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=14.23 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=14.72 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=14.90 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=14.96 deg
+[Platform] Player 1=-1.00 Player 2=-1.00 X=-15.00 deg Z=14.99 deg
+[TEST] PASS Both axes stay within +/-15 degrees with oversized sensor input
+[TEST] PASS Platform corners, ball and goal remain in camera frustum at all diagonal extremes
+[TEST] PASS Decorative floor, grid and light frame stay below the entire board at all diagonal extremes
+[TEST] FAIL Visible diagnostic panel stays clear of platform at diagonal extremes
+[TEST] PASS Camera remains fixed during input
+[TiltInput] source=sensor keys=[] Player 1=0.00 Player 2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-10.75 deg Z=10.74 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-3.95 deg Z=3.95 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-1.45 deg Z=1.45 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.54 deg Z=0.53 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.20 deg Z=0.20 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.07 deg Z=0.07 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.03 deg Z=0.03 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.01 deg Z=0.01 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[TEST] PASS Frozen ball remains stationary throughout test
+[TEST] Failures: 1
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00

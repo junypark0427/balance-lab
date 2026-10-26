@@ -1,0 +1,54 @@
+ERROR: Failed to open 'user://logs/godot2026-10-26T00.23.23.log'.
+   at: copy (core/io/dir_access.cpp:429)
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[LEVEL03 FIXTURE] PASS Non-degenerate render triangles face outward in Godot clockwise convention
+[LEVEL03 FIXTURE] PASS Every unsplit source solid is actually convex; convex proxies preserve domes/cylinders/pyramids
+[LEVEL03 FIXTURE] PASS obj_7 actual curved side contact rebounds, redirects and stays grounded
+[LEVEL03 FIXTURE] obj_7 rebound=0.209966391325 peak_y=0.70784288644791 at=(8.972413, 0.699999, 9.785157)
+[LEVEL03 FIXTURE] PASS obj_8 actual curved side contact rebounds, redirects and stays grounded
+[LEVEL03 FIXTURE] obj_8 rebound=0.16564963757992 peak_y=0.70727622509003 at=(-4.87549, 0.699998, 21.63331)
+[LEVEL03 FIXTURE] PASS obj_11 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_11 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_11 start=(2.665414, 2.28965, 1.82726) face_normal=(-0.914524, 0.396763, 0.078897) end=(0.16753, 0.699999, 2.13547) angular_peak=1.98038065433502
+[LEVEL03 FIXTURE] PASS obj_13 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_13 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_13 start=(-5.954089, 2.314074, -18.0) face_normal=(0.937651, 0.347578, 0.0) end=(-5.122903, 0.699999, -18.0) angular_peak=3.37953686714172
+[LEVEL03 FIXTURE] PASS obj_14 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_14 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_14 start=(-0.704088, 2.314074, -18.0) face_normal=(0.937651, 0.347578, 0.0) end=(0.127097, 0.699999, -18.0) angular_peak=3.37953591346741
+[LEVEL03 FIXTURE] PASS obj_15 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_15 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_15 start=(4.545912, 2.314074, -18.0) face_normal=(0.937651, 0.347578, 0.0) end=(5.377096, 0.699998, -18.00136) angular_peak=3.37953662872314
+[LEVEL03 FIXTURE] PASS obj_16 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_16 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_16 start=(9.795912, 2.314074, -18.0) face_normal=(0.937651, 0.347578, 0.0) end=(10.15008, 1.30109, -18.0) angular_peak=1.94916808605194
+[LEVEL03 FIXTURE] PASS obj_17 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_17 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_17 start=(-4.904088, 2.314074, -24.2) face_normal=(0.937651, 0.347578, 0.0) end=(-2.497902, 0.699999, -24.2) angular_peak=3.37954592704773
+[LEVEL03 FIXTURE] PASS obj_18 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_18 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_18 start=(1.920912, 2.314074, -24.2) face_normal=(0.937651, 0.347578, 0.0) end=(4.327097, 0.699999, -24.2) angular_peak=3.37953734397888
+[LEVEL03 FIXTURE] PASS obj_19 has an actual inclined source face
+[LEVEL03 FIXTURE] PASS obj_19 actual slope contact descends and rotates without sticking
+[LEVEL03 FIXTURE] obj_19 start=(8.745911, 2.314074, -24.2) face_normal=(0.937651, 0.347578, 0.0) end=(9.918952, 0.699999, -24.2) angular_peak=3.37953591346741
+[LEVEL03 FIXTURE] PASS obj_0 CCD stops a 25m/s impact on the actual thin wall
+[LEVEL03 FIXTURE] PASS obj_2 CCD stops a 25m/s impact on the actual thin wall
+[LEVEL03 FIXTURE] PASS Ball-sized sweep passes under the original gate
+[LEVEL03 FIXTURE] PASS The original thin lintel still collides above the opening
+[LEVEL03 FIXTURE] PASS Both unchanged cooperative axes reach the 15-degree limit
+[LEVEL03 FIXTURE] PASS All floor, gate and obstacle proxies share the same moving body transform
+[LEVEL03 FIXTURE] PASS Camera stays world-upright and its focus remains inside map bounds
+[Game] FALL #1: resetting ball
+[LEVEL03 FIXTURE] PASS Fall resets at this tilted map's start and clears both velocities
+[LEVEL03 FIXTURE] PASS Neutral return and smooth camera return work after respawn
+[LEVEL03 FIXTURE] PASS Repeated full-input reversals keep the ball within the board in this stress run
+[LEVEL03 FIXTURE] Reversal stress peak local height=2.12828898429871
+[LEVEL03 FIXTURE] Failures: 0

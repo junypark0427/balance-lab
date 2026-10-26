@@ -1,0 +1,167 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M3 (Apple9)
+
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[InputDebug FOCUS] focused=true
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[TiltInput _input #1] DOWN physical=4194334(F3) keycode=4194334(F3) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput _input #2] UP physical=4194334(F3) keycode=4194334(F3) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput _input #3] DOWN physical=65(A) keycode=65(A) matches=[tilt_left] unicode=12609 window=0 P1=-1.00 P2=0.00
+[TiltInput _input #4] UP physical=65(A) keycode=65(A) matches=[tilt_left] unicode=0 window=0 P1=0.00 P2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[TiltInput _input #5] DOWN physical=4194320(Up) keycode=4194320(Up) matches=[tilt_forward] unicode=0 window=0 P1=0.00 P2=-1.00
+[TiltInput _input #6] UP physical=4194320(Up) keycode=4194320(Up) matches=[tilt_forward] unicode=0 window=0 P1=0.00 P2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[TiltInput _input #7] DOWN physical=4194334(F3) keycode=4194334(F3) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[TiltInput _input #8] UP physical=4194334(F3) keycode=4194334(F3) matches=[] unicode=0 window=0 P1=0.00 P2=0.00
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg
+[Platform] Player 1=0.00 Player 2=0.00 X=-0.00 deg Z=0.00 deg

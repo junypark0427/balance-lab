@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M3 (Apple9)
+
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[LEVEL03] PASS Floor derives from the actual rectangular 201 x 791 OBJ
+[LEVEL03] PASS Source bounds include the original below-floor goal plate
+[LEVEL03] PASS All 21 original objects / 2076 triangles retained; gate alone split into three convex pieces
+[LEVEL03] PASS Actual opening preserves width 2.2006 and height 1.9003 for a diameter-1 ball
+[LEVEL03] PASS All model proxies share the rotating body; no ceiling or internal guard extensions
+[InputDebug FOCUS] focused=true
+[LEVEL03] PASS Ball settles at original cyan start marker
+[LEVEL03] PASS World-upright shared follow camera is active
+[LEVEL03] PASS Screenshot start
+[LEVEL03] PASS Ball-sized collision query finds a route through the real gate, not around the map edge
+[LEVEL03] Route: [(4.0, 0.7, 32.8), (3.6, 0.7, 31.6), (2.4, 0.7, 29.6), (2.4, 0.7, 28.4), (2.8, 0.7, 20.0), (6.0, 0.7, 18.0), (5.2, 0.7, 16.4), (0.8, 0.7, 8.0), (0.8, 0.7, -10.0), (1.2, 0.7, -20.0), (-0.4, 0.7, -28.8), (-0.4, 0.7, -32.4), (0.0, 0.7, -38.4), (-0.05, 0.8, -38.55)]
+[LEVEL03] Reached waypoint 0 t=9.33333333333346 at=(3.725425, 1.397747, 32.64303)
+[LEVEL03] Reached waypoint 1 t=12.9000000000003 at=(3.689666, 0.688355, 31.90595)
+[LEVEL03] PASS Screenshot section_1
+[LEVEL03] Reached waypoint 2 t=17.3166666666669 at=(2.531449, 0.677348, 29.8874)
+[LEVEL03] Reached waypoint 3 t=21.35 at=(2.415415, 0.842947, 28.71798)
+[LEVEL03] PASS Screenshot section_3
+[LEVEL03] Reached waypoint 4 t=30.7833333333328 at=(2.859033, 0.725305, 19.68923)
+[LEVEL03] Reached waypoint 5 t=35.7666666666658 at=(6.0698, 0.847463, 18.11971)
+[LEVEL03] PASS Screenshot section_5
+[LEVEL03] Reached waypoint 6 t=39.5999999999989 at=(5.156031, 0.864867, 16.7124)
+[LEVEL03] Reached waypoint 7 t=65.4833333333308 at=(0.802103, 0.698366, 7.906392)
+[LEVEL03] PASS Screenshot section_7
+[LEVEL03] Reached waypoint 8 t=100.866666666662 at=(0.799332, 0.699209, -10.31736)
+[LEVEL03] Reached waypoint 9 t=130.999999999998 at=(1.202164, 0.699414, -20.31616)
+[LEVEL03] Reached waypoint 10 t=154.166666666683 at=(-0.704042, 0.90393, -28.72851)
+[LEVEL03] Reached waypoint 11 t=164.983333333358 at=(-0.401182, 0.699545, -32.08221)
+[LEVEL03] Reached waypoint 12 t=169.066666666695 at=(-0.11054, 0.696301, -37.31313)
+[LEVEL03] Contacts { "obj_1": 148, "CollisionShape3D": 7799, "obj_3": 3, "obj_0": 9, "obj_6": 34, "obj_14": 2, "obj_15": 19, "obj_18": 58 } peak_height=1.79020547866821 elapsed=169.066666666695
+[LEVEL03] PASS Continuous real RigidBody traversal reaches Goal using tilt inputs only, without reset/teleport/velocity edits
+[LEVEL03] PASS Ball physically crosses beneath the gate lintel
+[LEVEL03] PASS Mission success stops controls, ball and timer and shows results
+[LEVEL03] PASS Screenshot success
+[LEVEL03] Failures: 0

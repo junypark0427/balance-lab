@@ -5,6 +5,7 @@ signal lobby_requested
 var _panel: PanelContainer
 var _time: Label
 var _level: Label
+var _subtitle: Label
 var _retry: Button
 var _shown: bool = false
 
@@ -39,9 +40,9 @@ func _ready() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_override("font", UI.font(true))
 	box.add_child(title)
-	var subtitle := UI.label("A shared balance. A shared breakthrough.", 22, UI.MUTED)
-	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	box.add_child(subtitle)
+	_subtitle = UI.label("A shared balance. A shared breakthrough.", 22, UI.MUTED)
+	_subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	box.add_child(_subtitle)
 	UI.line(box)
 	var caption := UI.label("CLEAR TIME", 17, UI.MUTED)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -67,12 +68,13 @@ func _ready() -> void:
 	_retry.pressed.connect(func(): retry_requested.emit())
 	hide()
 
-func present(clear_time: float, level: String) -> void:
+func present(clear_time: float, level: String, final_level: bool = false) -> void:
 	if _shown:
 		return
 	_shown = true
 	_time.text = "%02d:%02d.%d" % [int(clear_time / 60.0), int(clear_time) % 60, int(clear_time * 10.0) % 10]
-	_level.text = "LEVEL " + level + "     /     EXPERIMENT COMPLETE"
+	_level.text = "LEVEL " + level + ("     /     FINAL EXPERIMENT COMPLETE" if final_level else "     /     EXPERIMENT COMPLETE")
+	_subtitle.text = "Final experiment complete. Thank you for balancing together." if final_level else "A shared balance. A shared breakthrough."
 	modulate.a = 0.0
 	show()
 	# Wait for the containers to lay out the panel before scaling around its center.

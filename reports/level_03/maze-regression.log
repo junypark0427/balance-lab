@@ -1,0 +1,36 @@
+ERROR: Failed to open 'user://logs/godot2026-10-23T00.30.39.log'.
+   at: copy (core/io/dir_access.cpp:429)
+ERROR: Failed to open log file for writing: user://logs/godot.log
+   at: rotate_file (core/io/logger.cpp:169)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "ret != noErr" is true. Returning: ""
+   at: get_system_ca_certificates (platform/macos/os_macos.mm:1035)
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[MAZE TEST] PASS Ball starts at the inset left spawn; reset position matches
+[MAZE TEST] PASS Existing Goal is inset at the right corridor end
+[MAZE TEST] PASS Replaceable maze scene uses the existing platform physics body and rotation pivot
+[MAZE TEST] PASS Ten metal BoxMesh walls have matching direct-body box collisions, uniform height and thickness
+[MAZE TEST] PASS Invisible collision-only ceiling covers the maze and shares the platform body
+[MAZE TEST] PASS Spawn clears the ceiling and the gap above walls is smaller than the ball diameter
+[MAZE TEST] PASS Gravity settles the ball safely inside the left starting corridor
+[MAZE TEST] PASS Actual collision geometry admits a ball-sized connected path from spawn to Goal
+[MAZE TEST] PASS Walls prevent a straight left-to-goal shortcut
+[MAZE TEST] PASS Synthetic D+Up drives independent X/Z rotations simultaneously
+[MAZE TEST] PASS Both axes smoothly return to horizontal after release
+[MAZE TEST] PASS Maze physics body and all walls follow platform rotation at all four diagonal +/-15 degree extremes
+[MAZE TEST] PASS Fixed camera contains every wall at maximum tilt
+[MAZE TEST] PASS Walls do not cover the upper ball at spawn, turns or Goal across maximum tilt combinations
+[MAZE TEST] PASS Gravity rolls ball into the maze wall without passing through it
+[MAZE TEST] PASS Ceiling stops a fast upward-moving ball below its underside
+[MAZE TEST] PASS Upward kicks cannot clear either an internal wall or the outside maze wall
+[MAZE TEST] PASS Rapid changes in both tilt axes cannot lift the ball over a wall or outside the corridor
+[Game] FALL #1: resetting ball
+[MAZE TEST] PASS Off-platform fall counts once and returns to the left spawn
+[MAZE TEST] PASS Fall reset clears speed, spin and orientation
+[MAZE TEST] PASS Real ball traverses all three turns and reaches Goal using tilt alone, without falls or teleports
+[MAZE TEST] Automated traversal simulation time: 21.0 seconds (not a human difficulty estimate)
+[MAZE TEST] PASS Existing Mission Success UI and control lock work after maze traversal
+[MAZE TEST] Failures: 0

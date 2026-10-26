@@ -4,19 +4,20 @@ Godot 4 / GDScript로 만든 로컬 2인 협동 물리 퍼즐의 핵심 프로�
 기존 프로젝트의 내장 Jolt Physics 설정을 유지했고 Godot 4.7.2로 검증했습니다.
 외부 에셋이나 추가 플러그인은 필요하지 않습니다.
 
-**LEVEL 01 기본 미로와 LEVEL 02 Tinkercad 직사각형 미로가 포함됩니다.** 두 사람이 플랫폼을 기울여 공을 초록색 목표로 이동시킵니다.
-공의 중력·충돌·굴림은 내장 Jolt 물리 엔진이 처리합니다. LEVEL 02에는 외곽 벽과 수직 충돌 연장을 사용합니다.
+**LEVEL 01~04가 포함되며 LEVEL 04가 마지막 단계입니다.** 두 사람이 플랫폼을 기울여 공을 초록색 목표로 이동시킵니다.
+공의 중력·충돌·굴림은 내장 Jolt 물리 엔진이 처리합니다. LEVEL 02에는 외곽 벽과 수직 충돌 연장을 사용하며, LEVEL 03·04는 특수 장애물의 실제 형상을 따릅니다.
 
 ## 시작 화면과 메뉴
 
 F5로 프로젝트를 실행하면 `scenes/menu.tscn`에서 시작합니다.
 작업 폴더의 참고 PNG는 디자인 참고용으로만 확인했으며 실제 게임 배경이나 버튼 이미지로 사용하지 않습니다.
 실험실, 유리 패널, 금속 미로 전시대, 조명과 네온 띠는 Godot 기본 Mesh와 Material로 구성했습니다.
-메뉴의 공은 물리 게임과 별개인 전시용 애니메이션이며 실제 플레이는 `scenes/main.tscn` 또는 `scenes/level_02.tscn`에서 실행됩니다.
+메뉴의 공은 물리 게임과 별개인 전시용 애니메이션이며 실제 플레이는 `scenes/main.tscn`, `level_02.tscn`, `level_03.tscn`, `level_04.tscn`에서 실행됩니다.
 외부 모델·이미지·폰트·사운드를 다운로드하지 않았고 폰트는 OS의 시스템 폰트 및 내장 대체 폰트를 사용합니다.
 
 - **GAME START**: 기본 LEVEL 01을 시작합니다.
-- **LEVEL SELECT**: CALIBRATION(01)과 THE LABYRINTH(02)를 선택할 수 있으며, LEVEL 03은 잠금 상태입니다.
+- **LEVEL SELECT**: CALIBRATION(01), THE LABYRINTH(02), NEW HORIZONS(03), FINAL ORBIT(04)를 선택합니다.
+  기존처럼 네 레벨 모두 선택 가능하며, 별도의 진행도 저장/순차 잠금 해제는 구현하지 않았습니다.
 - **SETTINGS**: 입력 진단 표시, 모션 줄이기, 별도 게임 창의 전체 화면을 실제로 변경합니다.
   내장 게임 창에서는 전체 화면이 지원되지 않아 해당 스위치를 비활성화합니다.
   설정은 `user://settings.cfg`에 저장합니다. 음량 등 구현하지 않은 설정은 표시하지 않습니다.
@@ -129,7 +130,7 @@ F5 → LEVEL SELECT → THE LABYRINTH → ENTER LAB으로 실행합니다.
 
 ### 원본과 배치
 
-- 원본: `prototypes/tinkercad/Grand Fulffy/tinker.obj`, 재질: 같은 폴더 `obj.mtl`.
+- 원본: `prototypes/tinkercad/2nd map/Grand Fulffy/tinker.obj`, 재질: 같은 폴더 `obj.mtl`.
   저장소의 `Grand Fulffy.zip` 안 OBJ와 작업 폴더의 OBJ가 동일함을 확인했습니다. 원본 이동/복사/수정 없음.
 - `tinker_preview.png`는 참고만 했으며 게임 Scene에서는 참조하지 않습니다.
 - OBJ 실제 범위: X=185.898, Y=388, Z(높이)=39. 균일 배율 0.1로 18.5898×38.8, 높이 3.9가 됩니다.
@@ -413,3 +414,37 @@ UI 검사는 실제 사용자 설정을 덮어쓰지 않도록 별도의 `/tmp/b
 `godot`이 PATH에 없으면 설치된 Godot 실행 파일의 경로로 대체하세요.
 현재 컴퓨터에서는 `/Users/parkjunhoo/Downloads/Godot.app/Contents/MacOS/Godot`를 사용했습니다.
 제한된 실행 환경에서는 별도로 macOS 인증서 조회나 편집기 전역 설정 저장 권한 오류가 출력될 수 있습니다.
+
+
+## LEVEL 03 — NEW HORIZONS
+
+F5 → LEVEL SELECT → LEVEL 03 → ENTER LAB, 또는 `scenes/level_03.tscn`에서 F6.
+`prototypes/tinkercad/3rd map/Amazing Densor-Uusam/tinker.obj`와 같은 폴더의 MTL을 원본 위치에서 사용합니다.
+21개 원본 구조물의 색/형상/비율을 유지하며, 22.1×81.1 바닥과 기존 협동 조작/물리/추적 카메라/Goal을 연결합니다.
+통과구 벽은 세 충돌체로 나누어 빈 공간을 보존하고, 돔과 피라미드는 원래 곡면·경사면의 Convex를 사용합니다.
+±15도 제한은 유지하고 LEVEL 03만 긴 판의 회전 속도를 4도/초로 설정했습니다.
+실제 물리 자동 플레이로 약 169초에 Goal 도달을 확인했습니다. 사람의 전체 키보드 플레이 검증은 별도입니다.
+원본 분석, 장애물별 물리 실험, 남아 있는 기존 표시 검사 실패 및 재실행 방법은
+[LEVEL 03 검증 보고서](reports/level_03/validation.md)에 기록했습니다.
+
+
+## LEVEL 04 — FINAL ORBIT (최종 맵)
+
+F5 → LEVEL SELECT → FINAL ORBIT → ENTER LAB. 직접 실행은 `scenes/level_04.tscn`에서 F6입니다.
+원격 커밋 `381252f`(2026-10-23 KST)의 `prototypes/tinkercad/Grand Duup.zip` 안
+`tinker.obj`와 `obj.mtl`을 원래 압축 경로대로 `prototypes/tinkercad/`에서 사용합니다.
+원본 파일의 내용과 좌표·비율·장애물 배치는 변경하지 않았습니다.
+
+- 실제 OBJ 크기 183.2609×280×24.5, 균일 배율 0.1. 바닥은 18.4×29.2, 두께 0.4입니다.
+- 공은 이 맵에서만 반지름 0.55이며, 원본 단위의 5.5에 해당합니다. LEVEL 01~03의 공은 그대로입니다.
+- 중앙 8개 분리 솔리드 중 원호 7개는 원래 윗면 삼각형을 볼록 조각으로 병합해 68개 프록시로 만듭니다.
+  중앙 원기둥은 자체 Convex 하나이고, 모든 모델 프록시는 78개입니다. 빈 원형 통로를 메우는 큰 충돌체는 없습니다.
+- 전체가 같은 AnimatableBody3D로 기울어지며 원형 구조의 자동 회전은 없습니다.
+- ±15도, 기존 키보드 입력/공 물리/카메라/성공 판정은 공유합니다. LEVEL 04 회전 속도는 축별 5도/초입니다.
+- 원형 초록 Goal은 원본 표시를 그대로 사용합니다. LEVEL 03에서처럼 표시를 바닥에 겹치지 않습니다.
+- LEVEL 04 성공 시 `FINAL EXPERIMENT COMPLETE`를 표시하고 기존 RETRY/LOBBY를 제공합니다. LEVEL 05는 없습니다.
+
+실제 물리 프레임과 네 키 이벤트를 사용해 안쪽 원형 통로까지 거쳐 약 95초에 추가 낙하 없이 Goal에 도달했습니다.
+OS 키 전달 검사와 전체 자동 주행은 별도이며, 사람이 두 명 협력하여 끝까지 플레이한 결과는 아닙니다.
+원본 위치, 충돌 분해·통로 폭, 전체 회귀 검사와 남아 있는 LEVEL 01 진단 표시 실패는
+[LEVEL 04 검증 보고서](reports/level_04/validation.md)에 기록했습니다.

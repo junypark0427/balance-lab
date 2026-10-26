@@ -49,7 +49,8 @@ func _wait_scene(path: String) -> bool:
 func _capture(name: String) -> void:
 	if "--capture" in OS.get_cmdline_user_args() and DisplayServer.get_name() != "headless":
 		await create_timer(0.35, true).timeout
-		await RenderingServer.frame_post_draw
+		await process_frame
+		RenderingServer.force_draw()
 		_check(root.get_texture().get_image().save_png("/tmp/balance-lab-" + name + ".png") == OK, "Capture " + name)
 
 func _inside_screen(node: Node) -> bool:
@@ -84,7 +85,7 @@ func _run() -> void:
 	await _click(menu.find_child("LevelSelectButton", true, false))
 	_check(menu.page == "levels", "LEVEL SELECT routes to level directory")
 	_check(_inside_screen(menu), "Level directory stays within viewport")
-	_check(not menu.find_child("Level01", true, false).disabled and not menu.find_child("Level02", true, false).disabled and menu.find_child("Level03", true, false).disabled, "Both existing maps are selectable; future map remains locked")
+	_check(not menu.find_child("Level01", true, false).disabled and not menu.find_child("Level02", true, false).disabled and not menu.find_child("Level03", true, false).disabled and not menu.find_child("Level04", true, false).disabled, "All four implemented maps are selectable")
 	await _capture("levels")
 	await _click(menu.find_child("BackButton", true, false))
 	await _click(menu.find_child("SettingsButton", true, false))
@@ -172,5 +173,71 @@ func _run() -> void:
 	await create_timer(0.3).timeout
 	await _click(game.get_node("HUD/GameplayUI").success_menu.find_child("LobbyButton", true, false))
 	_check(await _wait_scene("res://scenes/menu.tscn") and not paused, "LEVEL02 result Lobby returns to existing menu")
+	# LEVEL03 uses the same navigation, pause and result flows with its own map metadata.
+	_session.change_scene("res://scenes/menu.tscn")
+	await _wait_scene("res://scenes/menu.tscn")
+	menu = current_scene.get_node("CanvasLayer/MenuUI")
+	await _click(menu.find_child("LevelSelectButton", true, false))
+	await _click(menu.find_child("Level03", true, false))
+	_check(await _wait_scene("res://scenes/level_03.tscn") and _session.selected_level == 2, "LEVEL SELECT enters LEVEL03")
+	game = current_scene
+	hud = game.get_node("HUD/GameplayUI")
+	_check(game.level_index == 2 and game.get_node("Camera3D").has_method("set_diagnostics_visible"), "LEVEL03 uses its own metadata and follow camera")
+	_key(KEY_ESCAPE)
+	await _frames()
+	_check(paused and hud.pause_menu.visible, "LEVEL03 pause works")
+	await _click(hud.find_child("RestartButton", true, false))
+	_check(await _wait_scene("res://scenes/level_03.tscn") and not paused, "LEVEL03 restart stays on LEVEL03")
+	game = current_scene
+	ball = game.get_node("Ball")
+	ball.global_transform = Transform3D(Basis.IDENTITY, game.get_node("Platform/Goal").global_position)
+	ball.linear_velocity = Vector3.ZERO
+	await create_timer(0.3).timeout
+	hud = game.get_node("HUD/GameplayUI")
+	_check(game.goal_reached and hud.success_menu.visible, "LEVEL03 uses existing success result")
+	await _click(hud.success_menu.find_child("RetryButton", true, false))
+	_check(await _wait_scene("res://scenes/level_03.tscn") and not current_scene.goal_reached, "LEVEL03 result Retry reloads correct map")
+	game = current_scene
+	ball = game.get_node("Ball")
+	ball.global_transform = Transform3D(Basis.IDENTITY, game.get_node("Platform/Goal").global_position)
+	ball.linear_velocity = Vector3.ZERO
+	await create_timer(0.3).timeout
+	await _click(game.get_node("HUD/GameplayUI").success_menu.find_child("LobbyButton", true, false))
+	_check(await _wait_scene("res://scenes/menu.tscn") and not paused, "LEVEL03 result Lobby returns to existing menu")
+	# LEVEL04 uses the same navigation, pause and result flows with its own map metadata.
+	_session.change_scene("res://scenes/menu.tscn")
+	await _wait_scene("res://scenes/menu.tscn")
+	menu = current_scene.get_node("CanvasLayer/MenuUI")
+	await _click(menu.find_child("LevelSelectButton", true, false))
+	await _click(menu.find_child("Level04", true, false))
+	_check(await _wait_scene("res://scenes/level_04.tscn") and _session.selected_level == 3, "LEVEL SELECT enters LEVEL04")
+	game = current_scene
+	hud = game.get_node("HUD/GameplayUI")
+	_check(game.level_index == 3 and game.get_node("Camera3D").has_method("set_diagnostics_visible"), "LEVEL04 uses its own metadata and follow camera")
+	_key(KEY_ESCAPE)
+	await _frames()
+	_check(paused and hud.pause_menu.visible, "LEVEL04 pause works")
+	await _click(hud.find_child("RestartButton", true, false))
+	_check(await _wait_scene("res://scenes/level_04.tscn") and not paused, "LEVEL04 restart stays on LEVEL04")
+	game = current_scene
+	ball = game.get_node("Ball")
+	ball.global_transform = Transform3D(Basis.IDENTITY, game.get_node("Platform/Goal").global_position)
+	ball.linear_velocity = Vector3.ZERO
+	await create_timer(0.3).timeout
+	hud = game.get_node("HUD/GameplayUI")
+	_check(game.goal_reached and hud.success_menu.visible and "FINAL EXPERIMENT" in hud.success_menu._level.text, "LEVEL04 shows final experiment completion without a new ending system")
+	await _click(hud.success_menu.find_child("RetryButton", true, false))
+	_check(await _wait_scene("res://scenes/level_04.tscn") and not current_scene.goal_reached, "LEVEL04 result Retry reloads correct map")
+	game = current_scene
+	ball = game.get_node("Ball")
+	ball.global_transform = Transform3D(Basis.IDENTITY, game.get_node("Platform/Goal").global_position)
+	ball.linear_velocity = Vector3.ZERO
+	await create_timer(0.3).timeout
+	await _click(game.get_node("HUD/GameplayUI").success_menu.find_child("LobbyButton", true, false))
+	_check(await _wait_scene("res://scenes/menu.tscn") and not paused, "LEVEL04 result Lobby returns to existing menu")
+	_check(_session.CATALOG.LEVELS.size() == 4 and not current_scene.find_child("Level05", true, false), "Catalog ends at LEVEL04")
+	_session.start_level(4)
+	await _frames()
+	_check(current_scene.scene_file_path == "res://scenes/menu.tscn" and not _session.transitioning, "Nonexistent LEVEL05 cannot be opened")
 	print("[UI TEST] Failures: ", _failures)
 	quit(0 if _failures == 0 else 1)

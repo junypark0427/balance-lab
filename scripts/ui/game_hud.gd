@@ -187,7 +187,7 @@ func _restart_level() -> void:
 func _on_mission_success(clear_time: float) -> void:
 	pause_menu.hide()
 	_pause_button.disabled = true
-	success_menu.present(clear_time, Session.CATALOG.LEVELS[game.level_index].id)
+	success_menu.present(clear_time, Session.CATALOG.LEVELS[game.level_index].id, Session.CATALOG.LEVELS[game.level_index].get("final", false))
 
 func set_paused(value: bool) -> void:
 	if Session.transitioning or game.goal_reached:

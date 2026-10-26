@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ui/game_hud.gd" id="6_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/lab_backdrop.tscn" id="7_room"]
 [ext_resource type="Script" path="res://scripts/mission_controller.gd" id="8_mission"]
-[ext_resource type="Mesh" path="res://prototypes/tinkercad/Grand Fulffy/tinker.obj" id="9_obj"]
+[ext_resource type="Mesh" path="res://prototypes/tinkercad/2nd map/Grand Fulffy/tinker.obj" id="9_obj"]
 [ext_resource type="Script" path="res://scripts/follow_camera.gd" id="10_camera"]
 
 [sub_resource type="PhysicsMaterial" id="Physics_platform"]
