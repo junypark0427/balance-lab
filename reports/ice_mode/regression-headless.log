@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/main.tscn ICE badge is behind PauseMenu
+[ICE REGRESSION] PASS res://scenes/main.tscn ICE badge is behind Mission Success
+[ICE REGRESSION] PASS res://scenes/main.tscn pause still works
+[ICE REGRESSION] SKIP shader pixels: run with a graphics renderer
+[ICE REGRESSION] PASS res://scenes/main.tscn ICE physics unchanged by visual fixes
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/main.tscn normal mode has no ICE override
+[ICE REGRESSION] PASS res://scenes/main.tscn normal damping preserved
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/level_02.tscn ICE badge is behind PauseMenu
+[ICE REGRESSION] PASS res://scenes/level_02.tscn ICE badge is behind Mission Success
+[ICE REGRESSION] PASS res://scenes/level_02.tscn pause still works
+[ICE REGRESSION] PASS res://scenes/level_02.tscn ICE physics unchanged by visual fixes
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/level_02.tscn normal mode has no ICE override
+[ICE REGRESSION] PASS res://scenes/level_02.tscn normal damping preserved
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/level_03.tscn ICE badge is behind PauseMenu
+[ICE REGRESSION] PASS res://scenes/level_03.tscn ICE badge is behind Mission Success
+[ICE REGRESSION] PASS res://scenes/level_03.tscn pause still works
+[ICE REGRESSION] PASS res://scenes/level_03.tscn ICE physics unchanged by visual fixes
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/level_03.tscn normal mode has no ICE override
+[ICE REGRESSION] PASS res://scenes/level_03.tscn normal damping preserved
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/level_04.tscn ICE badge is behind PauseMenu
+[ICE REGRESSION] PASS res://scenes/level_04.tscn ICE badge is behind Mission Success
+[ICE REGRESSION] PASS res://scenes/level_04.tscn pause still works
+[ICE REGRESSION] PASS res://scenes/level_04.tscn ICE physics unchanged by visual fixes
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE REGRESSION] PASS res://scenes/level_04.tscn normal mode has no ICE override
+[ICE REGRESSION] PASS res://scenes/level_04.tscn normal damping preserved
+[ICE REGRESSION] RESULTS: 24 passed, 0 failed

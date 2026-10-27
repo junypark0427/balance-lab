@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Sensor UDP port is occupied. Keyboard control remains available.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _ready (res://scripts/sensor_hub.gd:29)
+[PHYSICS TEST] Jolt simulation with synthetic input; physical keyboard delivery is not tested.
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[PHYSICS TEST] PASS Ball is dynamic, affected by gravity and uses CCD
+[PHYSICS TEST] PASS 16x16 visual platform and collision dimensions match
+[PHYSICS TEST] PASS Ball visual and collision radii match
+[PHYSICS TEST] PASS Gravity lowers ball from initial position
+[PHYSICS TEST] PASS Ball settles on the platform without sinking or bouncing indefinitely
+[PHYSICS TEST] PASS Diagonal tilt rolls ball right and toward far edge
+[PHYSICS TEST] PASS Ball develops both translational and rotational momentum
+[PHYSICS TEST] PASS Rolling ball remains above platform collision surface
+[PHYSICS TEST] PASS Ball keeps inertia while the platform returns to neutral
+[PHYSICS TEST] PASS Reset clears linear velocity, angular velocity and orientation in physics state
+[PHYSICS TEST] PASS Manual reset restores center without counting a failure
+[PHYSICS TEST] PASS Friction and damping gradually reduce rolling speed on a level platform
+[Game] FALL #1: resetting ball
+[PHYSICS TEST] PASS Off-platform gravity fall counts exactly one failure and respawns
+[PHYSICS TEST] PASS Failure feedback persists and respawn uses platform-relative start position
+[PHYSICS TEST] PASS Falling respawn clears all momentum and rotation
+[PHYSICS TEST] PASS Respawn settles without repeated failures
+[PHYSICS TEST] PASS CCD prevents a fast ball tunneling through the platform
+[Game] FALL #2: resetting ball
+[PHYSICS TEST] PASS Respawn remains safe while input holds the platform tilted
+[PHYSICS TEST] PASS Controls and rolling resume after a tilted-platform respawn
+[PHYSICS TEST] PASS Expanded goal detects the physical ball and completes mission
+[PHYSICS TEST] PASS Mission completion locks ball and platform until retry
+[PHYSICS TEST] Failures: 0

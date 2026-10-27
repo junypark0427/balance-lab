@@ -1,0 +1,16 @@
+test_analog_deadzone_saturation_and_independent_axes (test_bridge.BridgeTest.test_analog_deadzone_saturation_and_independent_axes) ... ok
+test_board_reboot_recovers_even_after_initial_three_seconds (test_bridge.BridgeTest.test_board_reboot_recovers_even_after_initial_three_seconds) ... ok
+test_calibration_stillness_wrap_and_persistence (test_bridge.BridgeTest.test_calibration_stillness_wrap_and_persistence) ... ok
+test_duplicate_id_is_not_assigned_twice (test_bridge.BridgeTest.test_duplicate_id_is_not_assigned_twice) ... ok
+test_invalid_sample_and_sensor_fault_neutral (test_bridge.BridgeTest.test_invalid_sample_and_sensor_fault_neutral) ... ok
+test_inversion_axis_selection_and_disconnect (test_bridge.BridgeTest.test_inversion_axis_selection_and_disconnect) ... ok
+test_malformed_messages_do_not_raise (test_bridge.BridgeTest.test_malformed_messages_do_not_raise) ... ok
+test_movement_does_not_calibrate (test_bridge.BridgeTest.test_movement_does_not_calibrate) ... ok
+test_replayed_frames_do_not_extend_freshness (test_bridge.BridgeTest.test_replayed_frames_do_not_extend_freshness) ... ok
+test_role_persistence_and_reversed_port_order (test_bridge.BridgeTest.test_role_persistence_and_reversed_port_order) ... ok
+test_stale_and_single_device_neutral (test_bridge.BridgeTest.test_stale_and_single_device_neutral) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.014s
+
+OK

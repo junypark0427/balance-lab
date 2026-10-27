@@ -1,0 +1,13 @@
+PASS Both physical USB sensors stream with saved player IDs
+PASS Both boards report verified pins and reboot ID firmware
+PASS Both boards provide more than 60 valid measured frames
+Detected role ports: [('esp32-680947606060', '/dev/cu.usbserial-10'), ('esp32-08d1f9e7279c', '/dev/cu.usbserial-110')]
+PASS Real STOP frame/data interruption neutralizes Player 1
+PASS Other USB sensor continues independently during interruption
+PASS Actual sensor stream resumes after START
+PASS Actual hardware reboot changes boot ID and returns input to neutral
+PASS Delayed START after actual reboot restores measurements
+Reboot evidence: {'previous_boot': 227374230, 'boot': 156484320, 'previous_seq': 232, 'seq': 68, 'ms': 5536}
+PASS Reopening real USB ports in reversed order preserves both roles
+REAL USB BENCH: 9 passed, 0 failed
+Not tested here: physical unplug, worn wrist axes, human game clear.

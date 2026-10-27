@@ -1,0 +1,127 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[ICE QA] PASS ICE toggle exists and defaults OFF 
+[ICE QA] PASS SETTINGS ICE toggle enables preference 
+[ICE QA] PASS SETTINGS writes ICE preference to isolated config 
+[ICE QA] PASS SETTINGS ICE toggle disables preference 
+[ICE QA] PASS SETTINGS ICE controls fit (960, 540) 
+[ICE QA] PASS SETTINGS ICE controls fit (1280, 800) 
+[ICE QA] PASS SETTINGS ICE controls fit (1024, 768) 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL1 normal mode has no ICE badge 
+[ICE QA] PASS LEVEL1 normal physics unchanged 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL1 ICE applied on start 
+[ICE QA] PASS LEVEL1 ICE preserves collision geometry 14
+[ICE QA] PASS LEVEL1 ICE reduces both contact frictions 
+[ICE QA] PASS LEVEL1 ICE uses reduced Replace damping 
+[ICE QA] PASS LEVEL1 ICE preserves bounce, CCD and gravity 
+[ICE QA] PASS LEVEL1 ICE floor shader assigned 
+[ICE QA] PASS LEVEL1 shared normal resources not mutated 
+[ICE QA] PASS LEVEL1 preference change waits for restart 
+[ICE QA] PASS LEVEL1 ICE simultaneous keyboard axes work 
+[ICE QA] PASS LEVEL1 ICE actual RigidBody moves 
+[ICE QA] PASS LEVEL1 ICE normalized analog adapter and angle limits 
+[ICE QA] PASS LEVEL1 ICE pause stops physical time 
+[ICE QA] PASS LEVEL1 ICE resume works 
+[ICE QA] PASS LEVEL1 ICE reset clears both velocities 
+[ICE QA] PASS LEVEL1 ICE goal fixture triggers Mission Success 
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[ICE QA] PASS LEVEL1 RETRY applies pending normal mode 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL2 normal mode has no ICE badge 
+[ICE QA] PASS LEVEL2 normal physics unchanged 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL2 ICE applied on start 
+[ICE QA] PASS LEVEL2 ICE preserves collision geometry 26
+[ICE QA] PASS LEVEL2 ICE reduces both contact frictions 
+[ICE QA] PASS LEVEL2 ICE uses reduced Replace damping 
+[ICE QA] PASS LEVEL2 ICE preserves bounce, CCD and gravity 
+[ICE QA] PASS LEVEL2 ICE floor shader assigned 
+[ICE QA] PASS LEVEL2 shared normal resources not mutated 
+[ICE QA] PASS LEVEL2 preference change waits for restart 
+[ICE QA] PASS LEVEL2 ICE simultaneous keyboard axes work 
+[ICE QA] PASS LEVEL2 ICE actual RigidBody moves 
+[ICE QA] PASS LEVEL2 ICE normalized analog adapter and angle limits 
+[ICE QA] PASS LEVEL2 ICE pause stops physical time 
+[ICE QA] PASS LEVEL2 ICE resume works 
+[ICE QA] PASS LEVEL2 ICE reset clears both velocities 
+[ICE QA] PASS LEVEL2 ICE goal fixture triggers Mission Success 
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[ICE QA] PASS LEVEL2 RETRY applies pending normal mode 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL3 normal mode has no ICE badge 
+[ICE QA] PASS LEVEL3 normal physics unchanged 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL3 ICE applied on start 
+[ICE QA] PASS LEVEL3 ICE preserves collision geometry 30
+[ICE QA] PASS LEVEL3 ICE reduces both contact frictions 
+[ICE QA] PASS LEVEL3 ICE uses reduced Replace damping 
+[ICE QA] PASS LEVEL3 ICE preserves bounce, CCD and gravity 
+[ICE QA] PASS LEVEL3 ICE floor shader assigned 
+[ICE QA] PASS LEVEL3 shared normal resources not mutated 
+[ICE QA] PASS LEVEL3 preference change waits for restart 
+[ICE QA] PASS LEVEL3 ICE simultaneous keyboard axes work 
+[ICE QA] PASS LEVEL3 ICE actual RigidBody moves 
+[ICE QA] PASS LEVEL3 ICE normalized analog adapter and angle limits 
+[ICE QA] PASS LEVEL3 ICE pause stops physical time 
+[ICE QA] PASS LEVEL3 ICE resume works 
+[ICE QA] PASS LEVEL3 ICE reset clears both velocities 
+[ICE QA] PASS LEVEL3 ICE goal fixture triggers Mission Success 
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[ICE QA] PASS LEVEL3 RETRY applies pending normal mode 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL4 normal mode has no ICE badge 
+[ICE QA] PASS LEVEL4 normal physics unchanged 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS LEVEL4 ICE applied on start 
+[ICE QA] PASS LEVEL4 ICE preserves collision geometry 85
+[ICE QA] PASS LEVEL4 ICE reduces both contact frictions 
+[ICE QA] PASS LEVEL4 ICE uses reduced Replace damping 
+[ICE QA] PASS LEVEL4 ICE preserves bounce, CCD and gravity 
+[ICE QA] PASS LEVEL4 ICE floor shader assigned 
+[ICE QA] PASS LEVEL4 shared normal resources not mutated 
+[ICE QA] PASS LEVEL4 preference change waits for restart 
+[ICE QA] PASS LEVEL4 ICE simultaneous keyboard axes work 
+[ICE QA] PASS LEVEL4 ICE actual RigidBody moves 
+[ICE QA] PASS LEVEL4 ICE normalized analog adapter and angle limits 
+[ICE QA] PASS LEVEL4 ICE pause stops physical time 
+[ICE QA] PASS LEVEL4 ICE resume works 
+[ICE QA] PASS LEVEL4 ICE reset clears both velocities 
+[ICE QA] PASS LEVEL4 ICE goal fixture triggers Mission Success 
+[TiltInput READY] node=/root/Main/TiltInput script=res://scripts/tilt_input.gd
+[Platform] input_source=/root/Main/TiltInput limit=+/-15.0 deg
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[TiltInput] source=keyboard keys=[] Player 1=0.00 Player 2=0.00
+[ICE QA] PASS LEVEL4 RETRY applies pending normal mode 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+[ICE QA] PASS Repeated mode/level loads release scene nodes [{ "cycle": 0, "objects": 1891.0, "nodes": 110.0, "orphan": 0.0, "static_bytes": 169430442.0 }, { "cycle": 1, "objects": 1891.0, "nodes": 110.0, "orphan": 0.0, "static_bytes": 169461958.0 }, { "cycle": 2, "objects": 1891.0, "nodes": 110.0, "orphan": 0.0, "static_bytes": 169462682.0 }, { "cycle": 3, "objects": 1891.0, "nodes": 110.0, "orphan": 0.0, "static_bytes": 169463430.0 }]
+[ICE QA] PASS normal controlled coast retains finite momentum { "before": 2.37094020843506, "after_3s": 1.28253853321075, "retention": 0.5409409012711 }
+[ICE QA] PASS normal counter-tilt brakes and reverses real physics 1.35
+[ICE QA] PASS ice controlled coast retains finite momentum { "before": 2.97681260108948, "after_3s": 2.29395842552185, "retention": 0.77060894753075 }
+[ICE QA] PASS ice counter-tilt brakes and reverses real physics 2.0
+[ICE QA] RESULT 84 passed 0 failed

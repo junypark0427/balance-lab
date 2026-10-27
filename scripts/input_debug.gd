@@ -49,7 +49,7 @@ func _refresh() -> void:
 	text += "Scene:%s | Map %s\n" % [owner.scene_file_path, _map_report]
 	text += "TiltInput ready:%s _input:%s | Link:%s | %s\n" % [
 		source.is_node_ready(), source.is_processing_input(), platform.input_source == source,
-		"SENSOR" if source.use_sensor_input else "KEYBOARD"
+		source.get_source_label().to_upper()
 	]
 	text += "Events:%d | %s\n" % [source.input_event_count, source.last_key_event]
 	text += "Last press: %s\n" % source.last_press_event

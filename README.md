@@ -15,13 +15,32 @@ F5로 프로젝트를 실행하면 `scenes/menu.tscn`에서 시작합니다.
 메뉴의 공은 물리 게임과 별개인 전시용 애니메이션이며 실제 플레이는 `scenes/main.tscn`, `level_02.tscn`, `level_03.tscn`, `level_04.tscn`에서 실행됩니다.
 외부 모델·이미지·폰트·사운드를 다운로드하지 않았고 폰트는 OS의 시스템 폰트 및 내장 대체 폰트를 사용합니다.
 
-- **GAME START**: 기본 LEVEL 01을 시작합니다.
-- **LEVEL SELECT**: CALIBRATION(01), THE LABYRINTH(02), NEW HORIZONS(03), FINAL ORBIT(04)를 선택합니다.
+- **GAME START**: 레벨 선택 화면을 엽니다. CALIBRATION(01), THE LABYRINTH(02), NEW HORIZONS(03), FINAL ORBIT(04)를 선택합니다.
   기존처럼 네 레벨 모두 선택 가능하며, 별도의 진행도 저장/순차 잠금 해제는 구현하지 않았습니다.
-- **SETTINGS**: 입력 진단 표시, 모션 줄이기, 별도 게임 창의 전체 화면을 실제로 변경합니다.
+- **SETTINGS**: ICE MODE, 입력 진단 표시, 모션 줄이기, 별도 게임 창의 전체 화면을 실제로 변경합니다.
   내장 게임 창에서는 전체 화면이 지원되지 않아 해당 스위치를 비활성화합니다.
   설정은 `user://settings.cfg`에 저장합니다. 음량 등 구현하지 않은 설정은 표시하지 않습니다.
 - **ESC**: 레벨 선택/설정에서는 홈으로, 플레이 중에는 일시정지/재개로 동작합니다.
+
+### 손목 센서와 ICE MODE
+
+키보드 플레이는 Godot만으로 실행합니다. ESP32 + MPU6050 컨트롤러를 사용하려면
+먼저 `hardware/start_sensors.command`로 Python/pySerial 중계를 실행해야 합니다.
+Godot 실행만으로 중계 프로그램이 자동 시작되지는 않습니다.
+최초 실행에는 Python 3와 pySerial 설치가 필요합니다.
+
+- **F4**: 연결 상태·Player 등록·축·반전 설정. 패널을 열면 게임이 일시정지됩니다.
+- **C**: 편한 정지 자세를 현재 중립으로 INIT. 실제 `INIT 완료` 표시를 확인합니다.
+- **F8**: KEYBOARD/SENSOR 전환. 센서 모드에서도 해당 축의 키보드 입력이 우선합니다.
+- 두 ESP32는 고유 ID로 역할을 저장해 USB 포트·연결 순서가 바뀌어도 P1 좌우/P2 앞뒤를 유지합니다.
+  개인별 역할·영점 파일은 Git 제외이며 새 PC에서는 최초 등록과 C 보정이 필요합니다.
+- **ICE MODE**: 기본 OFF. 설정을 저장하고 다음 레벨 시작/RESTART에 적용합니다.
+  네 맵의 마찰·감쇠를 낮추며 일반 모드 재질·충돌 구조는 보존합니다.
+
+[센서 운영 안내](hardware/SENSOR_CONTROLLERS.md) · [센서 실제 검증](reports/sensors/validation.md) ·
+[ICE 수정·검사](reports/ice_mode/fixes.md) · [QA와 미해결 항목](docs/qa/QA_REPORT.md) · [개발 연혁](docs/devlog/README.md)
+
+Windows용 개발 실행 `.bat`는 있지만 독립 EXE/Export 패키지는 아직 제작하지 않았고 Windows 실기기 검증도 남아 있습니다.
 
 기본 디자인 해상도는 1920×1080, 16:9입니다. 최초 실행 창은 화면에 잘 맞는 1280×720이며
 최소 960×540으로 설정했습니다. Anchor/Container와 canvas_items 스트레치를 사용하고

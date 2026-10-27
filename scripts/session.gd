@@ -5,6 +5,7 @@ const MENU_SCENE := "res://scenes/menu.tscn"
 var diagnostics_enabled: bool = false
 var reduced_motion: bool = false
 var fullscreen_enabled: bool = false
+var ice_mode_enabled: bool = false
 var selected_level: int = 0
 var transitioning: bool = false
 var preferences_path: String = "user://settings.cfg"
@@ -12,11 +13,7 @@ var _fade: ColorRect
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	var config := ConfigFile.new()
-	if config.load("user://settings.cfg") == OK:
-		diagnostics_enabled = config.get_value("display", "diagnostics", false)
-		reduced_motion = config.get_value("display", "reduced_motion", false)
-		fullscreen_enabled = config.get_value("display", "fullscreen", false)
+	load_preferences()
 	var layer := CanvasLayer.new()
 	layer.layer = 100
 	add_child(layer)
@@ -27,6 +24,16 @@ func _ready() -> void:
 	layer.add_child(_fade)
 	_fade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	apply_fullscreen()
+
+func load_preferences() -> Error:
+	var config := ConfigFile.new()
+	var error: Error = config.load(preferences_path)
+	# Older settings files have no ICE MODE entry; normal mode remains the default.
+	diagnostics_enabled = config.get_value("display", "diagnostics", false) == true
+	reduced_motion = config.get_value("display", "reduced_motion", false) == true
+	fullscreen_enabled = config.get_value("display", "fullscreen", false) == true
+	ice_mode_enabled = config.get_value("gameplay", "ice_mode", false) == true
+	return error
 
 func is_embedded() -> bool:
 	return "--embedded" in OS.get_cmdline_args()
@@ -40,6 +47,7 @@ func save_preferences() -> Error:
 	config.set_value("display", "diagnostics", diagnostics_enabled)
 	config.set_value("display", "reduced_motion", reduced_motion)
 	config.set_value("display", "fullscreen", fullscreen_enabled)
+	config.set_value("gameplay", "ice_mode", ice_mode_enabled)
 	return config.save(preferences_path)
 
 func start_level(index: int = 0) -> void:

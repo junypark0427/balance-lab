@@ -75,6 +75,7 @@ func _run() -> void:
 	_check(ProjectSettings.get_setting("display/window/size/viewport_width") == 1920 and ProjectSettings.get_setting("display/window/size/viewport_height") == 1080, "1920x1080 design resolution")
 	var menu = current_scene.get_node("CanvasLayer/MenuUI")
 	_check(menu.page == "home" and menu.find_child("StartButton", true, false) is Button, "Home uses real Godot buttons")
+	_check(menu.find_child("LevelSelectButton",true,false)==null,"Home removes duplicate LEVEL SELECT button")
 	for resolution in [Vector2i(960, 540), Vector2i(1280, 800), Vector2i(1024, 768)]:
 		root.size = resolution
 		await _frames(5)
@@ -82,8 +83,8 @@ func _run() -> void:
 	root.size = Vector2i(1280, 720)
 	await _frames(5)
 	await _capture("menu")
-	await _click(menu.find_child("LevelSelectButton", true, false))
-	_check(menu.page == "levels", "LEVEL SELECT routes to level directory")
+	await _click(menu.find_child("StartButton", true, false))
+	_check(menu.page == "levels", "GAME START routes to level directory")
 	_check(_inside_screen(menu), "Level directory stays within viewport")
 	_check(not menu.find_child("Level01", true, false).disabled and not menu.find_child("Level02", true, false).disabled and not menu.find_child("Level03", true, false).disabled and not menu.find_child("Level04", true, false).disabled, "All four implemented maps are selectable")
 	await _capture("levels")
@@ -101,7 +102,9 @@ func _run() -> void:
 	await _capture("settings")
 	await _click(menu.find_child("BackButton", true, false))
 	await _click(menu.find_child("StartButton", true, false))
-	_check(await _wait_scene("res://scenes/main.tscn"), "GAME START transitions to existing playable scene")
+	_check(menu.page=="levels","GAME START returns to level directory after SETTINGS")
+	await _click(menu.find_child("Level01",true,false))
+	_check(await _wait_scene("res://scenes/main.tscn"), "Selected LEVEL01 opens existing playable scene")
 	var game = current_scene
 	var hud = game.get_node("HUD/GameplayUI")
 	_check(not game.get_node("Ball").freeze and game.get_node("Platform").input_source == game.get_node("TiltInput"), "Game retains live physics and cooperative input connection")
@@ -139,14 +142,14 @@ func _run() -> void:
 	await _click(hud.find_child("MainMenuButton", true, false))
 	_check(await _wait_scene("res://scenes/menu.tscn") and not paused, "MAIN MENU returns safely from a paused game")
 	menu = current_scene.get_node("CanvasLayer/MenuUI")
-	await _click(menu.find_child("LevelSelectButton", true, false))
+	await _click(menu.find_child("StartButton", true, false))
 	await _click(menu.find_child("Level01", true, false))
 	_check(await _wait_scene("res://scenes/main.tscn"), "Available level card opens playable map")
 	# LEVEL02 uses the same navigation, pause and result flows with its own map metadata.
 	_session.change_scene("res://scenes/menu.tscn")
 	await _wait_scene("res://scenes/menu.tscn")
 	menu = current_scene.get_node("CanvasLayer/MenuUI")
-	await _click(menu.find_child("LevelSelectButton", true, false))
+	await _click(menu.find_child("StartButton", true, false))
 	await _click(menu.find_child("Level02", true, false))
 	_check(await _wait_scene("res://scenes/level_02.tscn") and _session.selected_level == 1, "LEVEL SELECT enters LEVEL02")
 	game = current_scene
@@ -177,7 +180,7 @@ func _run() -> void:
 	_session.change_scene("res://scenes/menu.tscn")
 	await _wait_scene("res://scenes/menu.tscn")
 	menu = current_scene.get_node("CanvasLayer/MenuUI")
-	await _click(menu.find_child("LevelSelectButton", true, false))
+	await _click(menu.find_child("StartButton", true, false))
 	await _click(menu.find_child("Level03", true, false))
 	_check(await _wait_scene("res://scenes/level_03.tscn") and _session.selected_level == 2, "LEVEL SELECT enters LEVEL03")
 	game = current_scene
@@ -208,7 +211,7 @@ func _run() -> void:
 	_session.change_scene("res://scenes/menu.tscn")
 	await _wait_scene("res://scenes/menu.tscn")
 	menu = current_scene.get_node("CanvasLayer/MenuUI")
-	await _click(menu.find_child("LevelSelectButton", true, false))
+	await _click(menu.find_child("StartButton", true, false))
 	await _click(menu.find_child("Level04", true, false))
 	_check(await _wait_scene("res://scenes/level_04.tscn") and _session.selected_level == 3, "LEVEL SELECT enters LEVEL04")
 	game = current_scene

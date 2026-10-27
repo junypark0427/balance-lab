@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS ZERO P1 addresses correct player over actual UDP
+PASS ZERO P2 addresses correct player over actual UDP
+PASS ZERO BOTH addresses correct player over actual UDP
+PASS SENSOR [F8] sends correct mode over actual UDP
+PASS KEYBOARD [F8] sends correct mode over actual UDP
+PASS C sends INIT request and displays pending status
+PASS Held C does not repeatedly reset neutral
+[Sensor INIT] INIT 완료 — P1, P2 현재 자세가 중립입니다.
+PASS Actual completion acknowledgement displays INIT 완료
+PASS INIT notification is visible inside the screen
+[Sensor INIT] INIT 실패: 손목을 멈춘 뒤 C를 다시 눌러 주세요.
+PASS Motion rejection displays failure instead of false success
+PASS Actual loopback UDP delivers two analog axes
+PASS Repeated sequence is rejected
+PASS Replay does not refresh timeout
+PASS Out-of-range UDP is fail-safe neutral
+PASS Old queued UDP cannot reactivate input
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/main.tscn map=A:OK D:OK Up:OK Down:OK 
+PASS res://scenes/main.tscn sensor reaches existing platform input
+PASS res://scenes/main.tscn both axes physically tilt
+PASS res://scenes/main.tscn keeps +/-15 degree limits
+PASS res://scenes/main.tscn existing RigidBody moves under actual physics
+PASS res://scenes/main.tscn keyboard overrides one axis while other sensor remains active
+PASS res://scenes/main.tscn one controller loss affects only its axis
+PASS res://scenes/main.tscn bridge loss neutralizes both axes
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_02.tscn map=A:OK D:OK Up:OK Down:OK 
+PASS res://scenes/level_02.tscn sensor reaches existing platform input
+PASS res://scenes/level_02.tscn both axes physically tilt
+PASS res://scenes/level_02.tscn keeps +/-15 degree limits
+PASS res://scenes/level_02.tscn existing RigidBody moves under actual physics
+PASS res://scenes/level_02.tscn keyboard overrides one axis while other sensor remains active
+PASS res://scenes/level_02.tscn one controller loss affects only its axis
+PASS res://scenes/level_02.tscn bridge loss neutralizes both axes
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_03.tscn map=A:OK D:OK Up:OK Down:OK 
+PASS res://scenes/level_03.tscn sensor reaches existing platform input
+PASS res://scenes/level_03.tscn both axes physically tilt
+PASS res://scenes/level_03.tscn keeps +/-15 degree limits
+PASS res://scenes/level_03.tscn existing RigidBody moves under actual physics
+PASS res://scenes/level_03.tscn keyboard overrides one axis while other sensor remains active
+PASS res://scenes/level_03.tscn one controller loss affects only its axis
+PASS res://scenes/level_03.tscn bridge loss neutralizes both axes
+[InputDebug READY] project=/Users/parkjunhoo/Documents/balance-lab/ scene=res://scenes/level_04.tscn map=A:OK D:OK Up:OK Down:OK 
+PASS res://scenes/level_04.tscn sensor reaches existing platform input
+PASS res://scenes/level_04.tscn both axes physically tilt
+PASS res://scenes/level_04.tscn keeps +/-15 degree limits
+PASS res://scenes/level_04.tscn existing RigidBody moves under actual physics
+PASS res://scenes/level_04.tscn keyboard overrides one axis while other sensor remains active
+PASS res://scenes/level_04.tscn one controller loss affects only its axis
+PASS res://scenes/level_04.tscn bridge loss neutralizes both axes
+PASS Controller panel pauses gameplay for pairing/zeroing
+PASS Closing panel restores previous pause state
+SENSOR INPUT RESULTS: 45 passed, 0 failed

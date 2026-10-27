@@ -1,4 +1,5 @@
 extends Node3D
+const ICE_MODE = preload("res://scripts/modes/ice_mode.gd")
 
 signal mission_succeeded(clear_time: float)
 
@@ -9,6 +10,7 @@ var elapsed_seconds: float = 0.0
 var game_status: String = "IN PROGRESS"
 var goal_reached: bool = false
 var clear_time: float = -1.0
+var ice_mode_active: bool = false
 var _reset_notice_left: float = 0.0
 @onready var ball: RigidBody3D = $Ball
 @onready var status: Label = $HUD/Status
@@ -16,6 +18,10 @@ var _reset_notice_left: float = 0.0
 
 
 func _ready() -> void:
+	# Snapshot the preference once: switching modes never mutates a live run.
+	ice_mode_active = Session.ice_mode_enabled
+	if ice_mode_active:
+		ICE_MODE.apply(self)
 	# Godot cameras look along local -Z; look_at avoids Euler/sign mistakes.
 	if fixed_camera:
 		camera.look_at($Platform.global_position, Vector3.UP)

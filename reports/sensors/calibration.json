@@ -1,0 +1,65 @@
+{
+  "v": 1,
+  "kind": "balance_sensors",
+  "mode": "keyboard",
+  "players": [
+    {
+      "id": "esp32-680947606060",
+      "axis": "pitch",
+      "invert": false,
+      "deadzone": 2.5,
+      "limit": 25.0,
+      "smoothing": 0.04,
+      "connected": true,
+      "calibrated": true,
+      "calibrating": false,
+      "angle": -0.09099999999999753,
+      "value": 0.0,
+      "age_ms": 0
+    },
+    {
+      "id": "esp32-08d1f9e7279c",
+      "axis": "pitch",
+      "invert": false,
+      "deadzone": 2.5,
+      "limit": 25.0,
+      "smoothing": 0.04,
+      "connected": true,
+      "calibrated": true,
+      "calibrating": false,
+      "angle": 0.06716666666666704,
+      "value": 0.0,
+      "age_ms": 0
+    }
+  ],
+  "devices": [
+    {
+      "id": "esp32-08d1f9e7279c",
+      "port": "/dev/cu.usbserial-10",
+      "pins": [
+        21,
+        22
+      ],
+      "connected": true,
+      "error": "",
+      "roll": -178.76,
+      "pitch": -5.93
+    },
+    {
+      "id": "esp32-680947606060",
+      "port": "/dev/cu.usbserial-110",
+      "pins": [
+        21,
+        22
+      ],
+      "connected": true,
+      "error": "",
+      "roll": 171.57,
+      "pitch": 16.53
+    }
+  ],
+  "message": "Calibrated esp32-08d1f9e7279c",
+  "session": "058e0138837d460db49941b08a85e9b5",
+  "seq": 12858,
+  "sent_unix_ms": 1793005213260
+}

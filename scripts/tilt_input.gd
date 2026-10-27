@@ -12,6 +12,7 @@ var last_press_event: String = "None"
 var last_event_axes: Vector2 = Vector2.ZERO
 var _sensor_axes: Vector2 = Vector2.ZERO
 var _last_debug_state: String = ""
+var _sensor_debug_elapsed: float = 0.0
 
 
 func _ready() -> void:
@@ -62,10 +63,14 @@ func get_pressed_keys() -> PackedStringArray:
 func _physics_process(_delta: float) -> void:
 	if not debug_logging:
 		return
+	_sensor_debug_elapsed += _delta
+	if get_source_label() != "keyboard" and _sensor_debug_elapsed < 0.2:
+		return
+	_sensor_debug_elapsed = 0.0
 	var keys: PackedStringArray = get_pressed_keys()
 	var axes: Vector2 = get_tilt_axes()
 	var state: String = "source=%s keys=[%s] Player 1=%.2f Player 2=%.2f" % [
-		"sensor" if use_sensor_input else "keyboard", ", ".join(keys), axes.x, axes.y
+		get_source_label(), ", ".join(keys), axes.x, axes.y
 	]
 	# Compare keys as well as axes: A+D must log even though its net axis is zero.
 	if state != _last_debug_state:
@@ -81,7 +86,19 @@ func get_tilt_axes() -> Vector2:
 	if use_sensor_input:
 		return _sensor_axes
 	# X: left/right, Y: forward/back. Opposite keys cancel each other.
-	return Vector2(
+	var keyboard := Vector2(
 		Input.get_axis("tilt_left", "tilt_right"),
 		Input.get_axis("tilt_forward", "tilt_backward")
 	)
+	var hub := get_node_or_null("/root/SensorHub")
+	if hub != null and hub.sensor_mode_enabled():
+		var sensors: Vector2 = hub.get_axes()
+		return Vector2(keyboard.x if keyboard.x != 0.0 else sensors.x, keyboard.y if keyboard.y != 0.0 else sensors.y)
+	return keyboard
+
+
+func get_source_label() -> String:
+	if use_sensor_input:
+		return "sensor"
+	var hub := get_node_or_null("/root/SensorHub")
+	return "sensor+keyboard" if hub != null and hub.sensor_mode_enabled() else "keyboard"

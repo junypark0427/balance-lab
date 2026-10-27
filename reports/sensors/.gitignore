@@ -1,0 +1,6 @@
+# Raw local recordings; curated evidence referenced by Markdown stays tracked.
+bridge*.csv
+live_game-*.csv
+live-init-*.csv
+worn-motion-*.json
+p2-axis-observation.json

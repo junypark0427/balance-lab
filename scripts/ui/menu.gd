@@ -95,8 +95,7 @@ func show_home() -> void:
 	slogan.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_content.add_child(slogan)
 	_gap(0)
-	var start := _center_button("GAME START", func(): Session.start_level(0), true, "StartButton")
-	_center_button("LEVEL SELECT", show_levels, false, "LevelSelectButton")
+	var start := _center_button("GAME START", show_levels, true, "StartButton")
 	_center_button("SETTINGS", show_settings, false, "SettingsButton")
 	_gap(16)
 	var hint := UI.label("TWO PLAYERS. ONE PLATFORM. A SHARED WAY FORWARD.", 15, UI.WHITE)
@@ -161,6 +160,8 @@ func show_settings() -> void:
 	box.add_theme_constant_override("separation", 12)
 	panel.add_child(box)
 	_toggle(box, "INPUT DIAGNOSTICS", "Show live input and physics telemetry in game.  [F3]", Session.diagnostics_enabled, func(value: bool): Session.diagnostics_enabled = value)
+	UI.line(box)
+	_toggle(box, "ICE MODE", "Extreme challenge: slippery ice. Applies on level start or restart.", Session.ice_mode_enabled, func(value: bool): Session.ice_mode_enabled = value)
 	UI.line(box)
 	_toggle(box, "REDUCED MOTION", "Still lab preview and shorter screen transitions.", Session.reduced_motion, func(value: bool): Session.reduced_motion = value)
 	UI.line(box)
