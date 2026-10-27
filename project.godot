@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Session="*res://scripts/session.gd"
 SensorHub="*res://scripts/sensor_hub.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/raw_models/plugin.cfg")
+
 [display]
 
 window/size/viewport_width=1920
@@ -59,5 +63,5 @@ tilt_backward={
 
 [rendering]
 
-rendering_device/driver.windows="d3d12"
+rendering_device/driver.windows="vulkan"
 anti_aliasing/quality/msaa_3d=2

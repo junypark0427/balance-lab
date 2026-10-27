@@ -1,5 +1,8 @@
 # BALANCE LAB
 
+Windows 배포·컨트롤러 실행 방법: [Windows 실행 안내](docs/WINDOWS_RELEASE.md).
+배포 스크립트는 `tools/windows/package_windows.py`, 내보내기 설정은 `export_presets.cfg`입니다.
+
 Godot 4 / GDScript로 만든 로컬 2인 협동 물리 퍼즐의 핵심 프로토타입입니다.
 기존 프로젝트의 내장 Jolt Physics 설정을 유지했고 Godot 4.7.2로 검증했습니다.
 외부 에셋이나 추가 플러그인은 필요하지 않습니다.

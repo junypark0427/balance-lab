@@ -3,7 +3,8 @@
 이 문서는 게임용 센서 연동 안내입니다. 이전 Pro Micro 검사 기록인 [README](README.md),
 [TEST_REPORT](TEST_REPORT.md)와 원래 테스트 스케치는 그대로 보존했습니다.
 현재 연결한 장치의 확인 결과는 [검증 기록](../reports/sensors/validation.md)을 참조하세요.
-Windows EXE/Export/PyInstaller는 이번 작업에 포함하지 않습니다.
+이 안내의 최초 센서 연동 작업에서는 Windows Export를 하지 않았습니다.
+이후 추가한 Windows 배포 실행 방법은 [Windows 실행 안내](../docs/WINDOWS_RELEASE.md)를 참조하세요.
 
 ## 구조와 보드 설정
 

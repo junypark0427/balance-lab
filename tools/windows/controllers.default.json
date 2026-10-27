@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "players": [
+    {
+      "id": "esp32-680947606060",
+      "axis": "pitch",
+      "invert": true,
+      "zero_roll": 0.0,
+      "zero_pitch": 0.0,
+      "deadzone": 2.5,
+      "limit": 25.0,
+      "smoothing": 0.04,
+      "calibrated": false
+    },
+    {
+      "id": "esp32-08d1f9e7279c",
+      "axis": "roll",
+      "invert": true,
+      "zero_roll": 0.0,
+      "zero_pitch": 0.0,
+      "deadzone": 2.5,
+      "limit": 25.0,
+      "smoothing": 0.04,
+      "calibrated": false
+    }
+  ]
+}
