@@ -34,6 +34,32 @@ def finite_number(value, limit):
     return type(value) in (int, float) and math.isfinite(value) and abs(value) <= limit
 
 
+def receive_commands(udp):
+    commands=[]
+    for _ in range(64):
+        try:data,peer=udp.recvfrom(4096)
+        except BlockingIOError:break
+        except ConnectionResetError as exc:
+            # Windows reports ICMP Port Unreachable here when Godot is not open
+            # yet (or has just closed). It is not a USB/sensor disconnection.
+            if getattr(exc,"winerror",None)!=10054:raise
+            continue
+        if peer[0]!="127.0.0.1" or len(data)>=4096:continue
+        try:command=json.loads(data)
+        except (ValueError,UnicodeError):continue
+        if isinstance(command,dict):commands.append(command)
+    return commands
+
+
+def send_snapshot(udp, snapshot, port):
+    data=json.dumps(snapshot,allow_nan=False,separators=(",",":")).encode()
+    try:udp.sendto(data,("127.0.0.1",port))
+    except ConnectionResetError as exc:
+        if getattr(exc,"winerror",None)!=10054:raise
+        return False  # Skip this datagram; the next live sample will be sent.
+    return True
+
+
 @dataclass
 class Device:
     identity: str
@@ -348,7 +374,7 @@ def main():
             except EOFError:return
             console.put(line)
     if not args.no_console:threading.Thread(target=read_console,daemon=True).start()
-    print("BALANCE LAB SENSOR BRIDGE | 115200 | UDP 127.0.0.1:%d"%args.udp_port,flush=True)
+    print("BALANCE LAB SENSOR BRIDGE | 115200 | UDP 127.0.0.1:%d | UDP reset fix 2026-11-05"%args.udp_port,flush=True)
     print("Godot F4: pair/calibrate/configure. F8: mode. Console: assign 1 ID / axis 1 roll / invert 1 on / calibrate all / sensor / keyboard / quit",flush=True)
     try:
         while not args.duration or time.monotonic()-start<args.duration:
@@ -370,14 +396,7 @@ def main():
                     if "transport_error" in frame:print("[USB]",port,frame["transport_error"],flush=True)
                 elif state.ingest(port,frame) and frame.get("kind")=="hello":
                     if port in queues:queues[port].put(b"START\n")
-            commands=[]
-            for _ in range(64):
-                try:data,peer=udp.recvfrom(4096)
-                except BlockingIOError:break
-                if peer[0]!="127.0.0.1" or len(data)>=4096:continue
-                try:command=json.loads(data)
-                except (ValueError,UnicodeError):continue
-                if isinstance(command,dict):commands.append(command)
+            commands=receive_commands(udp)
             while not console.empty():
                 line=console.get_nowait()
                 if line.strip()=="quit":stop.set();break
@@ -387,7 +406,7 @@ def main():
                 for port,data in state.command(command):
                     if port in queues:queues[port].put(data)
             snapshot=state.snapshot(tick-last);snapshot.update(session=session,seq=seq,sent_unix_ms=round(time.time()*1000))
-            udp.sendto(json.dumps(snapshot,allow_nan=False,separators=(",",":")).encode(),("127.0.0.1",args.udp_port))
+            send_snapshot(udp,snapshot,args.udp_port)
             if writer:
                 p1,p2=snapshot["players"]
                 samples=[state.devices[p["id"]].sample if p["id"] in state.devices else {} for p in (p1,p2)]
@@ -401,7 +420,7 @@ def main():
         state.mode="keyboard";stop.set()
         snapshot=state.snapshot();snapshot.update(session=session,seq=seq+1,sent_unix_ms=round(time.time()*1000))
         for p in snapshot["players"]:p["value"]=0;p["connected"]=False
-        udp.sendto(json.dumps(snapshot).encode(),("127.0.0.1",args.udp_port));udp.close()
+        send_snapshot(udp,snapshot,args.udp_port);udp.close()
         for thread in workers.values():thread.join(timeout=0.4)
         if log_file:log_file.close()
 

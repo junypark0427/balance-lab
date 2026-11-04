@@ -1,6 +1,7 @@
 # BALANCE LAB
 
-**[Windows 실행 파일 다운로드 (ZIP)](dist/BALANCE_LAB_Windows_x64_2026-10-27.zip)** — 압축 전체를 푼 뒤 키보드는 `BALANCE_LAB.exe`, 센서는 `START_BALANCE_LAB.cmd`로 실행합니다.
+**[Windows 실행 파일 다운로드 (ZIP)](dist/BALANCE_LAB_Windows_x64_2026-11-05.zip)** — 압축 전체를 푼 뒤 키보드는 `BALANCE_LAB.exe`, 센서는 `START_BALANCE_LAB.cmd`로 실행합니다.
+기존 설치의 Windows 센서 오류 `10054`는 [작은 센서 패치](dist/BALANCE_LAB_Sensor_Fix_2026-11-05.zip)로 수정할 수 있습니다.
 
 Windows 배포·컨트롤러 실행 방법: [Windows 실행 안내](docs/WINDOWS_RELEASE.md).
 배포 스크립트는 `tools/windows/package_windows.py`, 내보내기 설정은 `export_presets.cfg`입니다.
