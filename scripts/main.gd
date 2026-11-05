@@ -22,6 +22,7 @@ func _ready() -> void:
 	ice_mode_active = Session.ice_mode_enabled
 	if ice_mode_active:
 		ICE_MODE.apply(self)
+	BGMManager.play_gameplay()
 	# Godot cameras look along local -Z; look_at avoids Euler/sign mistakes.
 	if fixed_camera:
 		camera.look_at($Platform.global_position, Vector3.UP)

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Session="*res://scripts/session.gd"
 SensorHub="*res://scripts/sensor_hub.gd"
+BGMManager="*res://scripts/bgm_manager.gd"
 
 [editor_plugins]
 

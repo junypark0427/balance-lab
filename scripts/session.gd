@@ -2,10 +2,15 @@ extends Node
 ## A small scene router and persisted, functional preferences.
 const CATALOG = preload("res://scripts/level_catalog.gd")
 const MENU_SCENE := "res://scenes/menu.tscn"
+signal ice_mode_changed(enabled: bool)
 var diagnostics_enabled: bool = false
 var reduced_motion: bool = false
 var fullscreen_enabled: bool = false
-var ice_mode_enabled: bool = false
+var ice_mode_enabled: bool = false:
+	set(value):
+		if ice_mode_enabled != value:
+			ice_mode_enabled = value
+			ice_mode_changed.emit(value)
 var selected_level: int = 0
 var transitioning: bool = false
 var preferences_path: String = "user://settings.cfg"

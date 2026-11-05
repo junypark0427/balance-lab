@@ -5,6 +5,7 @@ var _content: VBoxContainer
 var _footer: Label
 
 func _ready() -> void:
+	BGMManager.play_lobby()
 	UI.veil(self, 0.22)
 	var margins := UI.margin(self, 52)
 	var column := VBoxContainer.new()
