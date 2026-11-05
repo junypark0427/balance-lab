@@ -2,6 +2,10 @@
 
 작업일: **2026-11-05, Asia/Seoul**. 엔진: **Godot 4.7.2.stable.official.ed1daf0bf**, GDScript.
 
+후속 작업: **2026-11-06**에 사용자 요청으로 소스를 Push하고 Windows 배포본을 재생성했습니다.
+현재 배포 상태는 [Windows 배포 검증](WINDOWS_RELEASE_2026-11-06.md)을 참조하세요.
+아래 본문은 최초 BGM 구현 당시의 기록을 보존합니다.
+
 ## 확인한 기존 구조와 파일
 
 - 시작 씬은 `scenes/menu.tscn`입니다. 홈·레벨 선택·SETTINGS는 같은 씬의 MenuUI 페이지입니다.
